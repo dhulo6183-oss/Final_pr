@@ -625,3 +625,6 @@ ORDER BY StudentID;
 ```
 
 </div>
+SELECT MAX(Salary) AS MaxSalary
+FROM Instructors
+WHERE DepartmentID = 1;    -- Computer Science only
