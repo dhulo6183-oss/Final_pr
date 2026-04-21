@@ -1,4 +1,4 @@
-# 🎓 Indian University Course Management System
+# 🎓 University Course Management System
 
 A relational database project built with **MySQL** that models a university's academic operations — managing students, instructors, courses, departments, and enrollments. The project covers full database design, sample data insertion, CRUD operations, and 15+ analytical SQL queries.
 
