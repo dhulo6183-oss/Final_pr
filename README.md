@@ -35,6 +35,23 @@
 - [🔗 Entity Relationships](#-entity-relationships)
 - [⚙️ Setup & Installation](#️-setup--installation)
 - [🔍 Queries — Detailed Breakdown](#-queries--detailed-breakdown)
+  - [Query 1 — CRUD Operations](#query-1--crud-operations)
+  - [Query 2 — Filter by Enrollment Date](#query-2--filter-by-enrollment-date)
+  - [Query 3 — Department-wise Courses](#query-3--department-wise-courses)
+  - [Query 4 — GROUP BY with HAVING](#query-4--group-by-with-having)
+  - [Query 5 — INTERSECT](#query-5--intersect-students-enrolled-in-both-courses)
+  - [Query 6 — UNION](#query-6--union-students-in-either-course)
+  - [Query 7 — AVG Credits](#query-7--avg-credits)
+  - [Query 8 — MAX Salary](#query-8--max-salary)
+  - [Query 9 — Students per Department](#query-9--students-per-department)
+  - [Query 10 — INNER JOIN](#query-10--inner-join)
+  - [Query 11 — LEFT JOIN](#query-11--left-join)
+  - [Query 12 — Nested Subquery](#query-12--nested-subquery-3-levels-deep)
+  - [Query 13 — YEAR() Date Function](#query-13--year-date-function)
+  - [Query 14 — CONCAT() String Function](#query-14--concat-string-function)
+  - [Query 15 — Window Function](#query-15--window-function-running-total)
+  - [Query 16 — CASE Statement](#query-16--case-statement-student-level-classification)
+- [🖼️ Query Screenshots Gallery](#️-query-screenshots-gallery)
 - [🛠️ Tech Stack](#️-tech-stack)
 - [📊 Project Stats](#-project-stats)
 - [📬 Author](#-author)
@@ -74,6 +91,24 @@ This project demonstrates practical SQL skills including:
 │   ├── 🖼️  Department_Table.png
 │   ├── 🖼️  Enrollments_Table.png
 │   └── 🖼️  Instructors_Table.png
+│
+├── 📂 Screenshots/                              ← Query output screenshots
+│   ├── 🖼️  sc1.png   ← Query 1  : CRUD Operations
+│   ├── 🖼️  sc2.png   ← Query 2  : Filter by Enrollment Date
+│   ├── 🖼️  sc3.png   ← Query 3  : Department-wise Courses (LIMIT)
+│   ├── 🖼️  sc4.png   ← Query 4  : GROUP BY + HAVING
+│   ├── 🖼️  sc5.png   ← Query 5  : INTERSECT (Double JOIN)
+│   ├── 🖼️  sc6.png   ← Query 6  : UNION
+│   ├── 🖼️  sc7.png   ← Query 7  : AVG Credits
+│   ├── 🖼️  sc8.png   ← Query 8  : MAX Salary
+│   ├── 🖼️  sc9.png   ← Query 9  : Students per Department
+│   ├── 🖼️  sc10.png  ← Query 10 : INNER JOIN
+│   ├── 🖼️  sc11.png  ← Query 11 : LEFT JOIN
+│   ├── 🖼️  sc12.png  ← Query 12 : Nested Subquery
+│   ├── 🖼️  sc13.png  ← Query 13 : YEAR() Date Function
+│   ├── 🖼️  sc14.png  ← Query 14 : CONCAT() String Function
+│   ├── 🖼️  sc15.png  ← Query 15 : Window Function (Running Total)
+│   └── 🖼️  sc16.png  ← Query 16 : CASE Statement
 │
 └── 📄 README.md                                 ← You are here!
 ```
@@ -286,6 +321,10 @@ DELETE FROM Students WHERE StudentID = 31;
 
 **💡 What it demonstrates:** Full CRUD lifecycle, safe conditional UPDATE and DELETE, INCREMENT and DECREMENT salary patterns.
 
+**📸 Output Screenshot:**
+
+![Query 1 - CRUD Operations](Screenshots/sc1.png)
+
 ---
 
 ### Query 2 — Filter by Enrollment Date
@@ -300,6 +339,10 @@ ORDER BY EnrollmentDate;
 ```
 
 **💡 What it demonstrates:** Date comparison in WHERE clause, chronological sorting, isolating students who joined after 2022.
+
+**📸 Output Screenshot:**
+
+![Query 2 - Filter by Enrollment Date](Screenshots/sc2.png)
 
 ---
 
@@ -316,6 +359,10 @@ LIMIT 5;
 ```
 
 **💡 What it demonstrates:** Filtering on FK columns, `LIMIT` for result capping, foundation for pagination-style queries.
+
+**📸 Output Screenshot:**
+
+![Query 3 - Department-wise Courses](Screenshots/sc3.png)
 
 ---
 
@@ -334,6 +381,10 @@ ORDER BY TotalStudents DESC;
 
 **💡 What it demonstrates:** `GROUP BY` aggregation, `HAVING` for post-grouping filters (unlike `WHERE` which filters rows before grouping), `COUNT()` aggregation, descending sort by computed column.
 
+**📸 Output Screenshot:**
+
+![Query 4 - GROUP BY with HAVING](Screenshots/sc4.png)
+
 ---
 
 ### Query 5 — INTERSECT (Students Enrolled in Both Courses)
@@ -348,6 +399,10 @@ JOIN Enrollments e2 ON s.StudentID = e2.StudentID AND e2.CourseID = 102;
 ```
 
 **💡 What it demonstrates:** Simulating INTERSECT in MySQL (no native INTERSECT keyword), self-joining Enrollments twice with different filters, finding the overlap between two sets of students.
+
+**📸 Output Screenshot:**
+
+![Query 5 - INTERSECT via Double JOIN](Screenshots/sc5.png)
 
 ---
 
@@ -368,6 +423,10 @@ ORDER BY StudentID;
 
 **💡 What it demonstrates:** `UNION` combining two result sets, column count must match across both SELECTs, automatic deduplication (vs `UNION ALL`), literal column value using `AS`.
 
+**📸 Output Screenshot:**
+
+![Query 6 - UNION](Screenshots/sc6.png)
+
 ---
 
 ### Query 7 — AVG Credits
@@ -380,6 +439,10 @@ FROM Courses;
 ```
 
 **💡 What it demonstrates:** `AVG()` for numerical column analysis, clean column aliasing with `AS`, concise single-line analytics query.
+
+**📸 Output Screenshot:**
+
+![Query 7 - AVG Credits](Screenshots/sc7.png)
 
 ---
 
@@ -394,6 +457,10 @@ WHERE DepartmentID = 1;    -- Computer Science only
 ```
 
 **💡 What it demonstrates:** `MAX()` scoped to a filtered subset, combining aggregate functions with `WHERE`, department-specific salary analytics.
+
+**📸 Output Screenshot:**
+
+![Query 8 - MAX Salary](Screenshots/sc8.png)
 
 ---
 
@@ -412,6 +479,10 @@ ORDER BY StudentCount DESC;
 
 **💡 What it demonstrates:** Three-table JOIN chain (Departments → Courses → Enrollments), `COUNT(DISTINCT ...)` to prevent double-counting students in multiple courses, ranking by popularity with `DESC`.
 
+**📸 Output Screenshot:**
+
+![Query 9 - Students per Department](Screenshots/sc9.png)
+
 ---
 
 ### Query 10 — INNER JOIN
@@ -428,6 +499,10 @@ ORDER BY s.StudentID;
 
 **💡 What it demonstrates:** `INNER JOIN` returning only matched rows, students with no enrollments are excluded, chaining two JOINs across three tables, the most common join for transactional reports.
 
+**📸 Output Screenshot:**
+
+![Query 10 - INNER JOIN](Screenshots/sc10.png)
+
 ---
 
 ### Query 11 — LEFT JOIN
@@ -443,6 +518,10 @@ ORDER BY s.StudentID;
 ```
 
 **💡 What it demonstrates:** `LEFT JOIN` preserves ALL rows from the left (driving) table, unenrolled students show `NULL` for CourseName, essential for identifying students with missing records.
+
+**📸 Output Screenshot:**
+
+![Query 11 - LEFT JOIN](Screenshots/sc11.png)
 
 ---
 
@@ -465,6 +544,10 @@ WHERE StudentID IN (
 
 **💡 What it demonstrates:** Three levels of nesting — innermost finds popular course IDs, middle finds enrolled student IDs, outer returns full student details. `IN` for set membership testing across nested queries.
 
+**📸 Output Screenshot:**
+
+![Query 12 - Nested Subquery](Screenshots/sc12.png)
+
 ---
 
 ### Query 13 — YEAR() Date Function
@@ -479,6 +562,10 @@ ORDER BY EnrollmentYear;
 ```
 
 **💡 What it demonstrates:** `YEAR()` date extraction function, creating a derived computed column, sorting by extracted year, foundation for year-over-year trend analysis.
+
+**📸 Output Screenshot:**
+
+![Query 13 - YEAR() Date Function](Screenshots/sc13.png)
 
 ---
 
@@ -495,6 +582,10 @@ ORDER BY InstructorID;
 ```
 
 **💡 What it demonstrates:** `CONCAT()` merging multiple columns with a space separator, computed virtual columns with `AS`, practical for generating report-ready or display-ready output.
+
+**📸 Output Screenshot:**
+
+![Query 14 - CONCAT() String Function](Screenshots/sc14.png)
 
 ---
 
@@ -513,6 +604,10 @@ ORDER BY e.EnrollmentID;
 
 **💡 What it demonstrates:** `SUM() OVER (ORDER BY ...)` Window Function, running total grows by 1 per row, unlike `GROUP BY` — all rows are preserved in output, one of the most powerful modern SQL features for time-series and trend analytics.
 
+**📸 Output Screenshot:**
+
+![Query 15 - Window Function Running Total](Screenshots/sc15.png)
+
 ---
 
 ### Query 16 — CASE Statement (Student Level Classification)
@@ -530,6 +625,35 @@ ORDER BY StudentID;
 ```
 
 **💡 What it demonstrates:** `CASE...WHEN...THEN...ELSE...END` — SQL's conditional branching, `DATEDIFF()` computing day-difference between two dates, `CURDATE()` fetching today's date dynamically so the query stays accurate over time.
+
+**📸 Output Screenshot:**
+
+![Query 16 - CASE Statement](Screenshots/sc16.png)
+
+---
+
+## 🖼️ Query Screenshots Gallery
+
+> All 16 query outputs captured from MySQL CLI — stored in `Screenshots/` folder.
+
+| # | Query | Screenshot |
+|:-:|:------|:----------:|
+| 1 | CRUD Operations | [sc1.png](Screenshots/sc1.png) |
+| 2 | Filter by Enrollment Date | [sc2.png](Screenshots/sc2.png) |
+| 3 | Department-wise Courses (LIMIT) | [sc3.png](Screenshots/sc3.png) |
+| 4 | GROUP BY + HAVING | [sc4.png](Screenshots/sc4.png) |
+| 5 | INTERSECT (Double JOIN) | [sc5.png](Screenshots/sc5.png) |
+| 6 | UNION | [sc6.png](Screenshots/sc6.png) |
+| 7 | AVG Credits | [sc7.png](Screenshots/sc7.png) |
+| 8 | MAX Salary | [sc8.png](Screenshots/sc8.png) |
+| 9 | Students per Department | [sc9.png](Screenshots/sc9.png) |
+| 10 | INNER JOIN | [sc10.png](Screenshots/sc10.png) |
+| 11 | LEFT JOIN | [sc11.png](Screenshots/sc11.png) |
+| 12 | Nested Subquery (3 Levels) | [sc12.png](Screenshots/sc12.png) |
+| 13 | YEAR() Date Function | [sc13.png](Screenshots/sc13.png) |
+| 14 | CONCAT() String Function | [sc14.png](Screenshots/sc14.png) |
+| 15 | Window Function (Running Total) | [sc15.png](Screenshots/sc15.png) |
+| 16 | CASE Statement | [sc16.png](Screenshots/sc16.png) |
 
 ---
 
@@ -625,6 +749,3 @@ ORDER BY StudentID;
 ```
 
 </div>
-SELECT MAX(Salary) AS MaxSalary
-FROM Instructors
-WHERE DepartmentID = 1;    -- Computer Science only
