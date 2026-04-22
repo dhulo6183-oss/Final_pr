@@ -342,7 +342,7 @@ ORDER BY EnrollmentDate;
 
 **📸 Output Screenshot:**
 
-![Query 2 - Filter by Enrollment Date](Screenshots/sc2.png)
+![Query 2 - Filter by Enrollment Date](sc2.png)
 
 ---
 
