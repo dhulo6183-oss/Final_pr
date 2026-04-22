@@ -335,7 +335,7 @@ ORDER BY EnrollmentDate;
 
 **📸 Output Screenshot:**
 
-![Query 2 - Filter by Enrollment Date](sc2.png)
+![Query 2 - Filter by Enrollment Date](s2.png)
 
 ---
 
@@ -355,7 +355,7 @@ LIMIT 5;
 
 **📸 Output Screenshot:**
 
-![Query 3 - Department-wise Courses](sc3.png)
+![Query 3 - Department-wise Courses](s3.png)
 
 ---
 
@@ -376,7 +376,7 @@ ORDER BY TotalStudents DESC;
 
 **📸 Output Screenshot:**
 
-![Query 4 - GROUP BY with HAVING](sc4.png)
+![Query 4 - GROUP BY with HAVING](s4.png)
 
 ---
 
