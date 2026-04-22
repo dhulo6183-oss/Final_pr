@@ -340,7 +340,7 @@ ORDER BY EnrollmentDate;
 
 **📸 Output Screenshot:**
 
-(s2.png)
+(S2.png)
 
 ---
 
