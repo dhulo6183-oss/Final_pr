@@ -51,7 +51,6 @@
   - [Query 14 — CONCAT() String Function](#query-14--concat-string-function)
   - [Query 15 — Window Function](#query-15--window-function-running-total)
   - [Query 16 — CASE Statement](#query-16--case-statement-student-level-classification)
-- [🖼️ Query Screenshots Gallery](#️-query-screenshots-gallery)
 - [🛠️ Tech Stack](#️-tech-stack)
 - [📊 Project Stats](#-project-stats)
 - [📬 Author](#-author)
@@ -92,16 +91,22 @@ This project demonstrates practical SQL skills including:
 │   ├── 🖼️  Enrollments_Table.png
 │   └── 🖼️  Instructors_Table.png
 │
-├── 🖼️  sc1.png    ← Query 1  : CRUD Operations
-├── 🖼️  sc2.png    ← Query 2  : Filter by Enrollment Date
-├── 🖼️  sc3.png    ← Query 3  : Department-wise Courses (LIMIT)
-├── 🖼️  sc4.png    ← Query 4  : GROUP BY + HAVING
-├── 🖼️  sc5.png    ← Query 5  : INTERSECT (Double JOIN)
-├── 🖼️  sc6.png    ← Query 6  : UNION
-├── 🖼️  sc7.png    ← Query 7  : AVG Credits
-├── 🖼️  sc8.png    ← Query 8  : MAX Salary
-├── 🖼️  sc9.png    ← Query 9  : Students per Department
-├── 🖼️  sc10.png   ← Query 10 : INNER JOIN
+├── 🖼️  s1.png    ← Query 1  : CRUD Operations
+├── 🖼️  s2.png    ← Query 2  : Filter by Enrollment Date
+├── 🖼️  s3.png    ← Query 3  : Department-wise Courses (LIMIT)
+├── 🖼️  s4.png    ← Query 4  : GROUP BY + HAVING
+├── 🖼️  s5.png    ← Query 5  : INTERSECT (Double JOIN)
+├── 🖼️  s6.png    ← Query 6  : UNION
+├── 🖼️  s7.png    ← Query 7  : AVG Credits
+├── 🖼️  s8.png    ← Query 8  : MAX Salary
+├── 🖼️  s9.png    ← Query 9  : Students per Department
+├── 🖼️  s10.png   ← Query 10 : INNER JOIN
+├── 🖼️  s11.png   ← Query 11 : LEFT JOIN
+├── 🖼️  s12.png   ← Query 12 : Nested Subquery
+├── 🖼️  s13.png   ← Query 13 : YEAR() Date Function
+├── 🖼️  s14.png   ← Query 14 : CONCAT() String Function
+├── 🖼️  s15.png   ← Query 15 : Window Function (Running Total)
+├── 🖼️  s16.png   ← Query 16 : CASE Statement
 │
 └── 📄 README.md                                 ← You are here!
 ```
@@ -395,7 +400,7 @@ JOIN Enrollments e2 ON s.StudentID = e2.StudentID AND e2.CourseID = 102;
 
 **📸 Output Screenshot:**
 
-![Query 5 - INTERSECT via Double JOIN](sc5.png)
+![Query 5 - INTERSECT via Double JOIN](s5.png)
 
 ---
 
@@ -418,7 +423,7 @@ ORDER BY StudentID;
 
 **📸 Output Screenshot:**
 
-![Query 6 - UNION](sc6.png)
+![Query 6 - UNION](s6.png)
 
 ---
 
@@ -435,7 +440,7 @@ FROM Courses;
 
 **📸 Output Screenshot:**
 
-![Query 7 - AVG Credits](sc7.png)
+![Query 7 - AVG Credits](s7.png)
 
 ---
 
@@ -453,7 +458,7 @@ WHERE DepartmentID = 1;    -- Computer Science only
 
 **📸 Output Screenshot:**
 
-![Query 8 - MAX Salary](sc8.png)
+![Query 8 - MAX Salary](s8.png)
 
 ---
 
@@ -474,7 +479,7 @@ ORDER BY StudentCount DESC;
 
 **📸 Output Screenshot:**
 
-![Query 9 - Students per Department](sc9.png)
+![Query 9 - Students per Department](s9.png)
 
 ---
 
@@ -494,7 +499,7 @@ ORDER BY s.StudentID;
 
 **📸 Output Screenshot:**
 
-![Query 10 - INNER JOIN](sc10.png)
+![Query 10 - INNER JOIN](s10.png)
 
 ---
 
@@ -514,7 +519,7 @@ ORDER BY s.StudentID;
 
 **📸 Output Screenshot:**
 
-![Query 11 - LEFT JOIN](sc11.png)
+![Query 11 - LEFT JOIN](s11.png)
 
 ---
 
@@ -539,7 +544,7 @@ WHERE StudentID IN (
 
 **📸 Output Screenshot:**
 
-![Query 12 - Nested Subquery](sc12.png)
+![Query 12 - Nested Subquery](s12.png)
 
 ---
 
@@ -558,7 +563,7 @@ ORDER BY EnrollmentYear;
 
 **📸 Output Screenshot:**
 
-![Query 13 - YEAR() Date Function](sc13.png)
+![Query 13 - YEAR() Date Function](s13.png)
 
 ---
 
@@ -578,7 +583,7 @@ ORDER BY InstructorID;
 
 **📸 Output Screenshot:**
 
-![Query 14 - CONCAT() String Function](sc14.png)
+![Query 14 - CONCAT() String Function](s14.png)
 
 ---
 
@@ -599,7 +604,7 @@ ORDER BY e.EnrollmentID;
 
 **📸 Output Screenshot:**
 
-![Query 15 - Window Function Running Total](sc15.png)
+![Query 15 - Window Function Running Total](s15.png)
 
 ---
 
@@ -621,26 +626,7 @@ ORDER BY StudentID;
 
 **📸 Output Screenshot:**
 
-![Query 16 - CASE Statement](sc16.png)
-
----
-
-## 🖼️ Query Screenshots Gallery
-
-> All query outputs captured from MySQL CLI — place screenshot files alongside `README.md`.
-
-| # | Query | Concept | Screenshot |
-|:-:|:------|:--------|:----------:|
-| 1 | CRUD Operations | INSERT · UPDATE · DELETE | ![sc1](sc1.png) |
-| 2 | Filter by Enrollment Date | WHERE · ORDER BY | ![sc2](sc2.png) |
-| 3 | Department-wise Courses | WHERE · LIMIT | ![sc3](sc3.png) |
-| 4 | Courses with > 5 Students | GROUP BY · HAVING · COUNT | ![sc4](sc4.png) |
-| 5 | Students in BOTH Courses 101 & 102 | INTERSECT via Double JOIN | ![sc5](sc5.png) |
-| 6 | Students in Course 101 OR 102 | UNION | ![sc6](sc6.png) |
-| 7 | Average Credits | AVG() | ![sc7](sc7.png) |
-| 8 | Max CS Instructor Salary | MAX() · WHERE | ![sc8](sc8.png) |
-| 9 | Students per Department | Multi-JOIN · COUNT DISTINCT | ![sc9](sc9.png) |
-| 10 | Students with their Courses | INNER JOIN | ![sc10](sc10.png) |
+![Query 16 - CASE Statement](s16.png)
 
 ---
 
