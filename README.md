@@ -1,724 +1,330 @@
-# 🎓 University Course Management System
-
 <div align="center">
 
 ```
-╔══════════════════════════════════════════════════════════════════╗
-║        🏛️  UNIVERSITY COURSE MANAGEMENT SYSTEM                  ║
-║               Final Project | SQL (MySQL)                        ║
-║        📂  Database: IndianUniversityCMS  |  License: MIT       ║
-╚══════════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║   ██████╗  █████╗ ████████╗ █████╗                          ║
+║   ██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗                         ║
+║   ██║  ██║███████║   ██║   ███████║                         ║
+║   ██║  ██║██╔══██║   ██║   ██╔══██║                         ║
+║   ██████╔╝██║  ██║   ██║   ██║  ██║                         ║
+║   ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝                         ║
+║                                                              ║
+║         S T O R Y   E N G I N E   v1.0                      ║
+║     "From Raw Tables → to Human Understanding"              ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
 ```
 
-![SQL](https://img.shields.io/badge/Language-SQL%20%28MySQL%29-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
-![Tables](https://img.shields.io/badge/Tables-5-blueviolet?style=for-the-badge)
-![Queries](https://img.shields.io/badge/Queries-16-orange?style=for-the-badge)
-![Rows](https://img.shields.io/badge/Sample%20Data-30%2B%20rows%2Ftable-red?style=for-the-badge)
+![SQL](https://img.shields.io/badge/SQL-MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Complete-brightgreen?style=for-the-badge)
+![Steps](https://img.shields.io/badge/Steps-17-orange?style=for-the-badge)
+![Author](https://img.shields.io/badge/Author-Dhruv%20Prajapati-blueviolet?style=for-the-badge)
+
+> *SQL isn't about querying databases. It's about asking the right questions.*
 
 </div>
 
 ---
 
-## 📑 Table of Contents
+## ◈ The Philosophy
 
-- [📖 Project Overview](#-project-overview)
-- [🗂️ Repository Structure](#️-repository-structure)
-- [🏗️ Database Schema](#️-database-schema)
-- [📊 Tables & Screenshots](#-tables--screenshots)
-  - [👨‍🎓 Students Table](#-students-table)
-  - [📚 Courses Table](#-courses-table)
-  - [🏛️ Departments Table](#️-departments-table)
-  - [📋 Enrollments Table](#-enrollments-table)
-  - [👨‍🏫 Instructors Table](#-instructors-table)
-- [🔗 Entity Relationships](#-entity-relationships)
-- [⚙️ Setup & Installation](#️-setup--installation)
-- [🔍 Queries — Detailed Breakdown](#-queries--detailed-breakdown)
-  - [Query 1 — CRUD Operations](#query-1--crud-operations)
-  - [Query 2 — Filter by Enrollment Date](#query-2--filter-by-enrollment-date)
-  - [Query 3 — Department-wise Courses](#query-3--department-wise-courses)
-  - [Query 4 — GROUP BY with HAVING](#query-4--group-by-with-having)
-  - [Query 5 — INTERSECT](#query-5--intersect-students-enrolled-in-both-courses)
-  - [Query 6 — UNION](#query-6--union-students-in-either-course)
-  - [Query 7 — AVG Credits](#query-7--avg-credits)
-  - [Query 8 — MAX Salary](#query-8--max-salary)
-  - [Query 9 — Students per Department](#query-9--students-per-department)
-  - [Query 10 — INNER JOIN](#query-10--inner-join)
-  - [Query 11 — LEFT JOIN](#query-11--left-join)
-  - [Query 12 — Nested Subquery](#query-12--nested-subquery-3-levels-deep)
-  - [Query 13 — YEAR() Date Function](#query-13--year-date-function)
-  - [Query 14 — CONCAT() String Function](#query-14--concat-string-function)
-  - [Query 15 — Window Function](#query-15--window-function-running-total)
-  - [Query 16 — CASE Statement](#query-16--case-statement-student-level-classification)
-- [🛠️ Tech Stack](#️-tech-stack)
-- [📊 Project Stats](#-project-stats)
-- [📬 Author](#-author)
+Most SQL tutorials teach you **syntax**.
 
----
+This project teaches you **thinking**.
 
-## 📖 Project Overview
-
-The **University Course Management System** is a fully functional relational database project built with **MySQL**. It simulates a real-world university backend that manages students, instructors, departments, courses, and enrollments — all connected through a well-defined relational schema enforced with foreign key constraints.
-
-This project demonstrates practical SQL skills including:
-
-- ✅ **Database design** with normalized tables and foreign keys
-- ✅ **CRUD operations** — INSERT, SELECT, UPDATE (INCREMENT/DECREMENT), DELETE
-- ✅ **Aggregate functions** — `COUNT`, `AVG`, `MAX`, `SUM`
-- ✅ **Joins** — `INNER JOIN`, `LEFT JOIN` across multiple tables
-- ✅ **Set operations** — `UNION` and `INTERSECT` (via double join)
-- ✅ **Subqueries** — single-level and deeply nested subqueries
-- ✅ **Date functions** — `YEAR()`, `DATEDIFF()`, `CURDATE()`
-- ✅ **String functions** — `CONCAT()`
-- ✅ **Window functions** — `SUM() OVER (ORDER BY ...)`
-- ✅ **CASE statements** — conditional labeling of records
-- ✅ **30+ rows per table** of realistic sample data
-
----
-
-## 🗂️ Repository Structure
+Every query here solves a real question a business analyst, data engineer, or product manager would actually ask. Each step transforms raw, silent data into something that speaks.
 
 ```
-📦 University_Course_Management_System/
-│
-├── 📄 University_Course_Management_System.sql   ← Main SQL file (all steps)
-│
-├── 📂 Tables/                                   ← Screenshots of all tables
-│   ├── 🖼️  Students_Table.png
-│   ├── 🖼️  Course_Table.png
-│   ├── 🖼️  Department_Table.png
-│   ├── 🖼️  Enrollments_Table.png
-│   └── 🖼️  Instructors_Table.png
-│
-├── 🖼️  s1.png    ← Query 1  : CRUD Operations
-├── 🖼️  s2.png    ← Query 2  : Filter by Enrollment Date
-├── 🖼️  s3.png    ← Query 3  : Department-wise Courses (LIMIT)
-├── 🖼️  s4.png    ← Query 4  : GROUP BY + HAVING
-├── 🖼️  s5.png    ← Query 5  : INTERSECT (Double JOIN)
-├── 🖼️  s6.png    ← Query 6  : UNION
-├── 🖼️  s7.png    ← Query 7  : AVG Credits
-├── 🖼️  s8.png    ← Query 8  : MAX Salary
-├── 🖼️  s9.png    ← Query 9  : Students per Department
-├── 🖼️  s10.png   ← Query 10 : INNER JOIN
-├── 🖼️  s11.png   ← Query 11 : LEFT JOIN
-├── 🖼️  s12.png   ← Query 12 : Nested Subquery
-├── 🖼️  s13.png   ← Query 13 : YEAR() Date Function
-├── 🖼️  s14.png   ← Query 14 : CONCAT() String Function
-├── 🖼️  s15.png   ← Query 15 : Window Function (Running Total)
-├── 🖼️  s16.png   ← Query 16 : CASE Statement
-│
-└── 📄 README.md                                 ← You are here!
+Raw Data  →  Query  →  Insight  →  Decision
+   🗃️           🔍         💡          ✅
 ```
 
 ---
 
-## 🏗️ Database Schema
+## ◈ Data Universe
 
 ```
-┌─────────────────┐          ┌──────────────────────┐
-│   Departments   │          │      Instructors      │
-│─────────────────│          │──────────────────────│
-│ 🔑 DepartmentID │◄─────────│ 🔑 InstructorID      │
-│    DeptName     │    │     │    FirstName          │
-└─────────────────┘    │     │    LastName           │
-         ▲             │     │    Email              │
-         │             │     │ 🔗 DepartmentID       │
-         │             │     │    Salary             │
-         │             │     └──────────────────────┘
-┌─────────────────┐    │
-│     Courses     │    │
-│─────────────────│    │
-│ 🔑 CourseID     │    │
-│    CourseName   │    │
-│ 🔗 DepartmentID │────┘
-│    Credits      │
-└─────────────────┘
-         ▲
-         │
-┌─────────────────┐          ┌─────────────────┐
-│   Enrollments   │          │    Students     │
-│─────────────────│          │─────────────────│
-│ 🔑 EnrollmentID │          │ 🔑 StudentID    │
-│ 🔗 StudentID    │◄─────────│    FirstName    │
-│ 🔗 CourseID     │          │    LastName     │
-│    EnrollDate   │          │    Email        │
-└─────────────────┘          │    BirthDate    │
-                             │    EnrollDate   │
-                             └─────────────────┘
+┌─────────────────────────────────────────────────────┐
+│                   THE DATA MODEL                    │
+│                                                     │
+│   ┌────────────┐         ┌────────────┐             │
+│   │  customers │ ──────► │   orders   │             │
+│   │            │  1 : N  │            │             │
+│   │ • id       │         │ • id       │             │
+│   │ • name     │         │ • cust_id  │             │
+│   │ • email    │         │ • amount   │             │
+│   └────────────┘         │ • date     │             │
+│                          └────────────┘             │
+│   ┌────────────┐                                    │
+│   │  employees │  (standalone analytics)            │
+│   │            │                                    │
+│   │ • id       │                                    │
+│   │ • name     │                                    │
+│   │ • salary   │                                    │
+│   │ • dept     │                                    │
+│   └────────────┘                                    │
+└─────────────────────────────────────────────────────┘
 ```
 
-> 🔑 = Primary Key &nbsp;&nbsp;&nbsp; 🔗 = Foreign Key
+---
+
+## ◈ The 17-Step Journey
+
+Each step answers one real question. Together they form a complete story.
+
+### 🔗 ACT I — Connecting the Data
+
+| Step | Question | Technique | Visual |
+|------|----------|-----------|--------|
+| `01` | *"Who ordered what?"* | `INNER JOIN` | ![Step1](sc1.png) |
+| `02` | *"Show all customers — even silent ones"* | `LEFT JOIN` | ![Step2](sc2.png) |
+| `03` | *"Every order must appear"* | `RIGHT JOIN` | ![Step3](sc3.png) |
+| `04` | *"Miss nothing — show the full universe"* | `FULL OUTER JOIN` | ![Step4](sc4.png) |
 
 ---
 
-## 📊 Tables & Screenshots
+### 🧠 ACT II — Filtering for Meaning
 
-### 👨‍🎓 Students Table
-
-> Stores personal details of all enrolled students. Each student has a unique `StudentID` and `Email`. The table holds **30 student records** spanning enrollment dates from 2017 to 2024.
-
-![Students Table](Tables/Students_Table.png)
-
-| Column | Type | Constraint | Description |
-|:------:|:----:|:----------:|:-----------:|
-| `StudentID` | INT | PRIMARY KEY | Unique student identifier |
-| `FirstName` | VARCHAR(50) | NOT NULL | Student's first name |
-| `LastName` | VARCHAR(50) | NOT NULL | Student's last name |
-| `Email` | VARCHAR(100) | UNIQUE, NOT NULL | Student's email address |
-| `BirthDate` | DATE | NOT NULL | Date of birth |
-| `EnrollmentDate` | DATE | NOT NULL | Date of university enrollment |
+| Step | Question | Technique | Visual |
+|------|----------|-----------|--------|
+| `05` | *"Who spends above average?"* | `Subquery + AVG()` | ![Step5](sc5.png) |
+| `06` | *"Who earns more than the average salary?"* | `Subquery + AVG()` | ![Step6](sc6.png) |
 
 ---
 
-### 📚 Courses Table
+### 🕒 ACT III — Understanding Time
 
-> Contains all **30 available courses** offered across departments. Each course is linked to exactly one department and carries a specific credit value ranging from 3 to 5.
-
-![Courses Table](Tables/Course_Table.png)
-
-| Column | Type | Constraint | Description |
-|:------:|:----:|:----------:|:-----------:|
-| `CourseID` | INT | PRIMARY KEY | Unique course identifier (101–130) |
-| `CourseName` | VARCHAR(100) | NOT NULL | Full name of the course |
-| `DepartmentID` | INT | FOREIGN KEY | References `Departments(DepartmentID)` |
-| `Credits` | INT | NOT NULL | Number of credit hours |
-
-> 📌 **Sample Courses:** Introduction to SQL, Data Structures, Calculus I, Linear Algebra, Classical Mechanics, Machine Learning, Web Development, Quantum Mechanics, and more!
+| Step | Question | Technique | Visual |
+|------|----------|-----------|--------|
+| `07` | *"Break data across time dimensions"* | `YEAR()`, `MONTH()` | ![Step7](sc7.png) |
+| `08` | *"How old is each order?"* | `DATEDIFF()` | ![Step8](sc8.png) |
+| `09` | *"Make dates readable for humans"* | `DATE_FORMAT()` | ![Step9](sc9.png) |
 
 ---
 
-### 🏛️ Departments Table
+### 🔤 ACT IV — Cleaning the Data
 
-> Master lookup table for all **10 academic departments** in the university. It is the parent table referenced by both `Courses` and `Instructors` via foreign keys.
-
-![Departments Table](Tables/Department_Table.png)
-
-| Column | Type | Constraint | Description |
-|:------:|:----:|:----------:|:-----------:|
-| `DepartmentID` | INT | PRIMARY KEY | Unique department identifier (1–10) |
-| `DepartmentName` | VARCHAR(100) | NOT NULL | Full name of the academic department |
-
-> 📌 **All 10 Departments:** Computer Science, Mathematics, Physics, Chemistry, Biology, English Literature, History, Economics, Mechanical Engineering, Civil Engineering.
+| Step | Question | Technique | Visual |
+|------|----------|-----------|--------|
+| `10` | *"Build full names from parts"* | `CONCAT()` | ![Step10](sc10.png) |
+| `11` | *"Fix inconsistent values in the table"* | `REPLACE()` | ![Step11](sc11.png) |
+| `12` | *"Standardize text casing"* | `UPPER()`, `LOWER()` | ![Step12](sc12.png) |
+| `13` | *"Remove invisible noise from strings"* | `TRIM()` | ![Step13](sc13.png) |
 
 ---
 
-### 📋 Enrollments Table
+### 📊 ACT V — Advanced Analytics
 
-> The **bridge/junction table** connecting `Students` and `Courses`. This table implements the many-to-many relationship — a student can enroll in multiple courses, and a course can have many students.
-
-![Enrollments Table](Tables/Enrollments_Table.png)
-
-| Column | Type | Constraint | Description |
-|:------:|:----:|:----------:|:-----------:|
-| `EnrollmentID` | INT | PRIMARY KEY | Unique enrollment record identifier |
-| `StudentID` | INT | FOREIGN KEY | References `Students(StudentID)` |
-| `CourseID` | INT | FOREIGN KEY | References `Courses(CourseID)` |
-| `EnrollmentDate` | DATE | NOT NULL | Date the student enrolled in this course |
-
-> 🔗 **Design Note:** This is a classic **many-to-many** relationship implemented via a junction table. Without this table, relational databases cannot directly model students ↔ courses connections.
+| Step | Question | Technique | Visual |
+|------|----------|-----------|--------|
+| `14` | *"How does revenue grow over time?"* | `SUM() OVER()` Window | ![Step14](sc14.png) |
+| `15` | *"Who are the top and bottom performers?"* | `RANK() OVER()` | ![Step15](sc15.png) |
+| `16` | *"Apply tiered discount rules"* | `CASE WHEN` | ![Step16](sc16.png) |
+| `17` | *"Classify employees by salary band"* | `CASE WHEN` | ![Step17](sc17.png) |
 
 ---
 
-### 👨‍🏫 Instructors Table
+## ◈ SQL Concepts at a Glance
 
-> Stores full details about **30 faculty members**, including their department affiliations and salary figures. Salary data is used in aggregate queries (MAX, comparisons).
-
-![Instructors Table](Tables/Instructors_Table.png)
-
-| Column | Type | Constraint | Description |
-|:------:|:----:|:----------:|:-----------:|
-| `InstructorID` | INT | PRIMARY KEY | Unique instructor identifier |
-| `FirstName` | VARCHAR(50) | NOT NULL | Instructor's first name |
-| `LastName` | VARCHAR(50) | NOT NULL | Instructor's last name |
-| `Email` | VARCHAR(100) | UNIQUE, NOT NULL | Instructor's official university email |
-| `DepartmentID` | INT | FOREIGN KEY | References `Departments(DepartmentID)` |
-| `Salary` | DECIMAL(10,2) | DEFAULT 50000.00 | Monthly salary (ranges from $60K to $85K) |
-
----
-
-## 🔗 Entity Relationships
-
-| 🔗 Relationship | 🔄 Type | 📝 Description |
-|:--------------:|:-------:|:--------------:|
-| Students ↔ Enrollments | One-to-Many | One student can have many enrollment records |
-| Courses ↔ Enrollments | One-to-Many | One course can have many enrollment records |
-| Departments ↔ Courses | One-to-Many | One department offers many courses |
-| Departments ↔ Instructors | One-to-Many | One department employs many instructors |
-| Students ↔ Courses | **Many-to-Many** | Implemented via `Enrollments` junction table |
-
----
-
-## ⚙️ Setup & Installation
-
-Follow these steps to get the project running locally on your machine 🖥️
-
-**Step 1 — Prerequisites**
-```bash
-# Ensure MySQL is installed (version 5.7+ or 8.0+ recommended)
-mysql --version
-```
-
-**Step 2 — Clone the Repository**
-```bash
-git clone https://github.com/your-username/University_Course_Management_System.git
-cd University_Course_Management_System
-```
-
-**Step 3 — Run the SQL File**
-```bash
-# Login to MySQL
-mysql -u root -p
-
-# Inside MySQL shell, execute the project file
-source University_Course_Management_System.sql;
-```
-
-**Step 4 — Verify Setup**
-```sql
-USE IndianUniversityCMS;
-SHOW TABLES;
-
-SELECT COUNT(*) FROM Students;      -- Expected: 30
-SELECT COUNT(*) FROM Courses;       -- Expected: 30
-SELECT COUNT(*) FROM Instructors;   -- Expected: 30
-SELECT COUNT(*) FROM Enrollments;   -- Expected: 33
-SELECT COUNT(*) FROM Departments;   -- Expected: 10
-```
-
-> ✅ If all counts match, your database is fully configured and ready for all 16 queries!
-
----
-
-## 🔍 Queries — Detailed Breakdown
-
-The project includes **16 carefully crafted SQL queries** covering a wide range of real-world database operations. Each query is explained with code, purpose, and what SQL concepts it demonstrates.
-
----
-
-### Query 1 — CRUD Operations
-
-> 📌 **Concept:** The four fundamental database operations — Create, Read, Update (INCREMENT & DECREMENT), Delete.
+<details>
+<summary><b>🔗 JOIN Types — Connecting Tables</b></summary>
 
 ```sql
--- ➕ CREATE: Add a new student
-INSERT INTO Students VALUES (31, 'New', 'Student', 'new.student@edu.in', '2003-01-01', '2025-08-01');
+-- INNER: Only rows that match in both tables
+SELECT * FROM customers c
+INNER JOIN orders o ON c.id = o.customer_id;
 
--- 📖 READ: View all records
-SELECT * FROM Students;
+-- LEFT: All customers, even those without orders
+SELECT * FROM customers c
+LEFT JOIN orders o ON c.id = o.customer_id;
 
--- ✏️ UPDATE INCREMENT: Give CS department instructors a $5,000 raise
-UPDATE Instructors SET Salary = Salary + 5000 WHERE DepartmentID = 1;
+-- RIGHT: All orders, even if customer data is missing
+SELECT * FROM customers c
+RIGHT JOIN orders o ON c.id = o.customer_id;
 
--- ✏️ UPDATE DECREMENT: Reduce salary for instructors earning above $80,000
-UPDATE Instructors SET Salary = Salary - 2000 WHERE Salary > 80000;
-
--- ❌ DELETE: Remove the test student record
-DELETE FROM Students WHERE StudentID = 31;
-```
-
-**💡 What it demonstrates:** Full CRUD lifecycle, safe conditional UPDATE and DELETE, INCREMENT and DECREMENT salary patterns.
-
-**📸 Output Screenshot:**
-
-![Query 1 - CRUD Operations](s1.png)
-
----
-
-### Query 2 — Filter by Enrollment Date
-
-> 📌 **Concept:** Date-based row filtering using `WHERE` with `ORDER BY`.
-
-```sql
-SELECT StudentID, FirstName, LastName, EnrollmentDate
-FROM Students
-WHERE EnrollmentDate > '2022-12-31'
-ORDER BY EnrollmentDate;
-```
-
-**💡 What it demonstrates:** Date comparison in WHERE clause, chronological sorting, isolating students who joined after 2022.
-
-**📸 Output Screenshot:**
-
-(S2.png)
-
----
-
-### Query 3 — Department-wise Courses
-
-> 📌 **Concept:** Filtering by a foreign key value and capping results with `LIMIT`.
-
-```sql
-SELECT CourseID, CourseName, Credits
-FROM Courses
-WHERE DepartmentID = 2        -- Mathematics department
-ORDER BY CourseID
-LIMIT 5;
-```
-
-**💡 What it demonstrates:** Filtering on FK columns, `LIMIT` for result capping, foundation for pagination-style queries.
-
-**📸 Output Screenshot:**
-
-![Query 3 - Department-wise Courses](s3.png)
-
----
-
-### Query 4 — GROUP BY with HAVING
-
-> 📌 **Concept:** Counting enrollments per course and filtering groups to show only popular courses (more than 5 students).
-
-```sql
-SELECT c.CourseID, c.CourseName, COUNT(e.StudentID) AS TotalStudents
-FROM Courses c
-JOIN Enrollments e ON c.CourseID = e.CourseID
-GROUP BY c.CourseID, c.CourseName
-HAVING COUNT(e.StudentID) > 5
-ORDER BY TotalStudents DESC;
-```
-
-**💡 What it demonstrates:** `GROUP BY` aggregation, `HAVING` for post-grouping filters (unlike `WHERE` which filters rows before grouping), `COUNT()` aggregation, descending sort by computed column.
-
-**📸 Output Screenshot:**
-
-![Query 4 - GROUP BY with HAVING](s4.png)
-
----
-
-### Query 5 — INTERSECT (Students Enrolled in Both Courses)
-
-> 📌 **Concept:** Finding students enrolled in **Course 101 AND Course 102** simultaneously — MySQL-compatible INTERSECT via double JOIN.
-
-```sql
-SELECT s.StudentID, s.FirstName, s.LastName
-FROM Students s
-JOIN Enrollments e1 ON s.StudentID = e1.StudentID AND e1.CourseID = 101
-JOIN Enrollments e2 ON s.StudentID = e2.StudentID AND e2.CourseID = 102;
-```
-
-**💡 What it demonstrates:** Simulating INTERSECT in MySQL (no native INTERSECT keyword), self-joining Enrollments twice with different filters, finding the overlap between two sets of students.
-
-**📸 Output Screenshot:**
-
-![Query 5 - INTERSECT via Double JOIN](s5.png)
-
----
-
-### Query 6 — UNION (Students in Either Course)
-
-> 📌 **Concept:** Merging results from two separate SELECT queries into one combined result set using `UNION`.
-
-```sql
-SELECT s.StudentID, s.FirstName, s.LastName, 'Intro to SQL' AS CourseName
-FROM Students s JOIN Enrollments e ON s.StudentID = e.StudentID WHERE e.CourseID = 101
-
+-- FULL: Everything from both sides (no row left behind)
+SELECT * FROM customers c
+LEFT JOIN orders o ON c.id = o.customer_id
 UNION
-
-SELECT s.StudentID, s.FirstName, s.LastName, 'Data Structures' AS CourseName
-FROM Students s JOIN Enrollments e ON s.StudentID = e.StudentID WHERE e.CourseID = 102
-ORDER BY StudentID;
+SELECT * FROM customers c
+RIGHT JOIN orders o ON c.id = o.customer_id;
 ```
 
-**💡 What it demonstrates:** `UNION` combining two result sets, column count must match across both SELECTs, automatic deduplication (vs `UNION ALL`), literal column value using `AS`.
+</details>
 
-**📸 Output Screenshot:**
-
-![Query 6 - UNION](s6.png)
-
----
-
-### Query 7 — AVG Credits
-
-> 📌 **Concept:** Calculating the average credit value across all courses using the `AVG()` aggregate function.
+<details>
+<summary><b>🧠 Subqueries — Dynamic Filtering</b></summary>
 
 ```sql
-SELECT AVG(Credits) AS AverageCredits
-FROM Courses;
-```
+-- "Who spends more than average?"
+SELECT customer_name, total_amount
+FROM orders
+WHERE total_amount > (
+    SELECT AVG(total_amount) FROM orders
+);
 
-**💡 What it demonstrates:** `AVG()` for numerical column analysis, clean column aliasing with `AS`, concise single-line analytics query.
-
-**📸 Output Screenshot:**
-
-![Query 7 - AVG Credits](s7.png)
-
----
-
-### Query 8 — MAX Salary
-
-> 📌 **Concept:** Finding the highest salary among Computer Science instructors using `MAX()`.
-
-```sql
-SELECT MAX(Salary) AS MaxSalary
-FROM Instructors
-WHERE DepartmentID = 1;    -- Computer Science only
-```
-
-**💡 What it demonstrates:** `MAX()` scoped to a filtered subset, combining aggregate functions with `WHERE`, department-specific salary analytics.
-
-**📸 Output Screenshot:**
-
-![Query 8 - MAX Salary](s8.png)
-
----
-
-### Query 9 — Students per Department
-
-> 📌 **Concept:** Counting unique students in each academic department via a three-table JOIN chain.
-
-```sql
-SELECT d.DepartmentName, COUNT(DISTINCT e.StudentID) AS StudentCount
-FROM Departments d
-JOIN Courses     c ON d.DepartmentID = c.DepartmentID
-JOIN Enrollments e ON c.CourseID     = e.CourseID
-GROUP BY d.DepartmentID, d.DepartmentName
-ORDER BY StudentCount DESC;
-```
-
-**💡 What it demonstrates:** Three-table JOIN chain (Departments → Courses → Enrollments), `COUNT(DISTINCT ...)` to prevent double-counting students in multiple courses, ranking by popularity with `DESC`.
-
-**📸 Output Screenshot:**
-
-![Query 9 - Students per Department](s9.png)
-
----
-
-### Query 10 — INNER JOIN
-
-> 📌 **Concept:** Retrieving only students who have an enrollment record — matching rows across three tables.
-
-```sql
-SELECT s.StudentID, s.FirstName, s.LastName, c.CourseName, e.EnrollmentDate
-FROM Students    s
-INNER JOIN Enrollments e ON s.StudentID = e.StudentID
-INNER JOIN Courses     c ON e.CourseID  = c.CourseID
-ORDER BY s.StudentID;
-```
-
-**💡 What it demonstrates:** `INNER JOIN` returning only matched rows, students with no enrollments are excluded, chaining two JOINs across three tables, the most common join for transactional reports.
-
-**📸 Output Screenshot:**
-
-![Query 10 - INNER JOIN](s10.png)
-
----
-
-### Query 11 — LEFT JOIN
-
-> 📌 **Concept:** Retrieving ALL students — including those not enrolled in any course — using `LEFT JOIN`.
-
-```sql
-SELECT s.StudentID, s.FirstName, s.LastName, c.CourseName
-FROM Students    s
-LEFT JOIN Enrollments e ON s.StudentID = e.StudentID
-LEFT JOIN Courses     c ON e.CourseID  = c.CourseID
-ORDER BY s.StudentID;
-```
-
-**💡 What it demonstrates:** `LEFT JOIN` preserves ALL rows from the left (driving) table, unenrolled students show `NULL` for CourseName, essential for identifying students with missing records.
-
-**📸 Output Screenshot:**
-
-![Query 11 - LEFT JOIN](s11.png)
-
----
-
-### Query 12 — Nested Subquery (3 Levels Deep)
-
-> 📌 **Concept:** Using a subquery inside a subquery to identify students enrolled in high-demand courses (more than 10 students).
-
-```sql
-SELECT StudentID, FirstName, LastName
-FROM Students
-WHERE StudentID IN (
-    SELECT e.StudentID FROM Enrollments e
-    WHERE e.CourseID IN (
-        SELECT CourseID FROM Enrollments
-        GROUP BY CourseID
-        HAVING COUNT(StudentID) > 10
-    )
+-- "Who earns above average salary?"
+SELECT name, salary
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary) FROM employees
 );
 ```
 
-**💡 What it demonstrates:** Three levels of nesting — innermost finds popular course IDs, middle finds enrolled student IDs, outer returns full student details. `IN` for set membership testing across nested queries.
+</details>
 
-**📸 Output Screenshot:**
-
-![Query 12 - Nested Subquery](s12.png)
-
----
-
-### Query 13 — YEAR() Date Function
-
-> 📌 **Concept:** Extracting just the year component from `EnrollmentDate` for display and sorting.
+<details>
+<summary><b>🕒 Date Intelligence</b></summary>
 
 ```sql
-SELECT StudentID, FirstName, LastName, EnrollmentDate,
-       YEAR(EnrollmentDate) AS EnrollmentYear
-FROM Students
-ORDER BY EnrollmentYear;
+-- Extract time dimensions
+SELECT YEAR(order_date), MONTH(order_date), COUNT(*) FROM orders
+GROUP BY YEAR(order_date), MONTH(order_date);
+
+-- Days since order
+SELECT order_id, DATEDIFF(NOW(), order_date) AS days_old FROM orders;
+
+-- Human-readable format
+SELECT DATE_FORMAT(order_date, '%D %M %Y') AS readable_date FROM orders;
 ```
 
-**💡 What it demonstrates:** `YEAR()` date extraction function, creating a derived computed column, sorting by extracted year, foundation for year-over-year trend analysis.
+</details>
 
-**📸 Output Screenshot:**
-
-![Query 13 - YEAR() Date Function](s13.png)
-
----
-
-### Query 14 — CONCAT() String Function
-
-> 📌 **Concept:** Combining `FirstName` and `LastName` columns into a single display-ready `FullName` string.
+<details>
+<summary><b>🔤 String Functions — Cleaning Text</b></summary>
 
 ```sql
-SELECT InstructorID,
-       CONCAT(FirstName, ' ', LastName) AS FullName,
-       Email, DepartmentID
-FROM Instructors
-ORDER BY InstructorID;
+-- Build full names
+SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM customers;
+
+-- Fix bad data
+SELECT REPLACE(city, 'Mmbai', 'Mumbai') FROM customers;
+
+-- Remove invisible spaces
+SELECT TRIM(email) FROM customers;
+
+-- Standardize casing
+SELECT UPPER(name), LOWER(email) FROM employees;
 ```
 
-**💡 What it demonstrates:** `CONCAT()` merging multiple columns with a space separator, computed virtual columns with `AS`, practical for generating report-ready or display-ready output.
+</details>
 
-**📸 Output Screenshot:**
-
-![Query 14 - CONCAT() String Function](s14.png)
-
----
-
-### Query 15 — Window Function (Running Total)
-
-> 📌 **Concept:** Calculating a cumulative running count of all enrollments using an SQL Window Function.
+<details>
+<summary><b>📊 Window Functions — Analytics Without Collapsing Rows</b></summary>
 
 ```sql
-SELECT e.EnrollmentID, e.CourseID, c.CourseName, e.StudentID,
-       e.EnrollmentDate,
-       SUM(1) OVER (ORDER BY e.EnrollmentID) AS RunningTotalStudents
-FROM Enrollments e
-JOIN Courses c ON e.CourseID = c.CourseID
-ORDER BY e.EnrollmentID;
+-- Running total (cumulative revenue)
+SELECT order_id, amount,
+    SUM(amount) OVER (ORDER BY order_date) AS running_total
+FROM orders;
+
+-- Rank orders by amount
+SELECT order_id, amount,
+    RANK() OVER (ORDER BY amount DESC) AS rank_position
+FROM orders;
 ```
 
-**💡 What it demonstrates:** `SUM() OVER (ORDER BY ...)` Window Function, running total grows by 1 per row, unlike `GROUP BY` — all rows are preserved in output, one of the most powerful modern SQL features for time-series and trend analytics.
+</details>
 
-**📸 Output Screenshot:**
-
-![Query 15 - Window Function Running Total](s15.png)
-
----
-
-### Query 16 — CASE Statement (Student Level Classification)
-
-> 📌 **Concept:** Labeling every student as `Senior` or `Junior` based on how long ago they enrolled, using `CASE` + `DATEDIFF` + `CURDATE`.
+<details>
+<summary><b>🧮 CASE WHEN — Business Logic in SQL</b></summary>
 
 ```sql
-SELECT StudentID, FirstName, LastName, EnrollmentDate,
-       CASE
-           WHEN DATEDIFF(CURDATE(), EnrollmentDate) > (4 * 365) THEN 'Senior'
-           ELSE 'Junior'
-       END AS StudentLevel
-FROM Students
-ORDER BY StudentID;
+-- Tiered discounts
+SELECT order_id, amount,
+    CASE
+        WHEN amount > 10000 THEN 'Premium — 20% off'
+        WHEN amount > 5000  THEN 'Gold — 10% off'
+        ELSE 'Standard — No discount'
+    END AS discount_tier
+FROM orders;
+
+-- Salary classification
+SELECT name, salary,
+    CASE
+        WHEN salary > 80000 THEN 'Senior'
+        WHEN salary > 50000 THEN 'Mid-Level'
+        ELSE 'Junior'
+    END AS band
+FROM employees;
 ```
 
-**💡 What it demonstrates:** `CASE...WHEN...THEN...ELSE...END` — SQL's conditional branching, `DATEDIFF()` computing day-difference between two dates, `CURDATE()` fetching today's date dynamically so the query stays accurate over time.
-
-**📸 Output Screenshot:**
-
-![Query 16 - CASE Statement](s16.png)
+</details>
 
 ---
 
-## 🛠️ Tech Stack
-
-| 🔧 Tool | 💡 Purpose |
-|:-------:|:----------:|
-| 🐬 MySQL 8.0+ | Primary relational database engine |
-| 🖥️ MySQL Workbench | SQL IDE for writing and executing queries |
-| 💻 MySQL CLI | Terminal-based query execution & verification |
-| 📄 `.sql` Script File | Portable, version-controllable project source |
-| 📂 GitHub | Version control and project hosting |
-
----
-
-## 📊 Project Stats
+## ◈ Skills You Walk Away With
 
 ```
-╔══════════════════════════════════════════════════╗
-║           📊  PROJECT STATISTICS                 ║
-╠══════════════════════════════════════════════════╣
-║  📦 Database Name    : IndianUniversityCMS       ║
-║  📋 Total Tables     : 5                         ║
-║  📝 SQL Build Steps  : 4 (DB → Tables → Data     ║
-║                          → Queries)              ║
-║  🔢 Sample Records   : 30+ rows per table        ║
-║                        (150+ total records)      ║
-║  🔍 Total Queries    : 16                        ║
-║  🔗 Foreign Keys     : 4 enforced relationships  ║
-╠══════════════════════════════════════════════════╣
-║  ⚙️  SQL Features Used:                          ║
-║     DDL, DML, DQL, Aggregate Functions,          ║
-║     INNER JOIN, LEFT JOIN, UNION,                ║
-║     INTERSECT (via JOIN), Nested Subqueries,     ║
-║     Date Functions, String Functions,            ║
-║     Window Functions, CASE Statements            ║
-╚══════════════════════════════════════════════════╝
+After completing this project, you can:
+
+  ✦  Connect multiple tables with the right JOIN for the job
+  ✦  Write subqueries that dynamically filter with AVG / MAX / MIN
+  ✦  Work with dates — extract, format, calculate distance
+  ✦  Clean dirty data with TRIM, REPLACE, UPPER / LOWER
+  ✦  Build window functions for running totals and rankings
+  ✦  Encode business rules directly into SQL with CASE logic
+  ✦  Think in terms of "what question does this query answer?"
 ```
 
 ---
 
-## ✨ Concepts Coverage Checklist
+## ◈ How to Run
 
-| 🏷️ SQL Concept | ✅ Status |
-|:--------------:|:--------:|
-| CREATE DATABASE & USE | ✅ Done |
-| CREATE TABLE with PK & FK | ✅ Done |
-| INSERT with 30+ rows per table | ✅ Done |
-| SELECT with WHERE & ORDER BY | ✅ Done |
-| UPDATE — INCREMENT & DECREMENT | ✅ Done |
-| DELETE with condition | ✅ Done |
-| INNER JOIN (multi-table) | ✅ Done |
-| LEFT JOIN | ✅ Done |
-| UNION | ✅ Done |
-| INTERSECT (via double JOIN) | ✅ Done |
-| Nested Subquery (3 levels) | ✅ Done |
-| GROUP BY + HAVING | ✅ Done |
-| COUNT(), AVG(), MAX(), SUM() | ✅ Done |
-| YEAR(), DATEDIFF(), CURDATE() | ✅ Done |
-| CONCAT() | ✅ Done |
-| Window Function — SUM OVER | ✅ Done |
-| CASE Statement | ✅ Done |
-| LIMIT clause | ✅ Done |
+```bash
+# 1. Clone or download the project
+git clone https://github.com/dhruv/sql-data-story-engine
+
+# 2. Open your MySQL client (Workbench, DBeaver, CLI)
+
+# 3. Import the SQL file
+mysql -u root -p < sql_lab.sql
+
+# 4. Run queries step by step — follow the 17-step journey
+```
+
+> Tested on **MySQL 8.0+**. Compatible with MariaDB.
 
 ---
 
-## 📬 Author
+## ◈ Project Structure
 
-<div align="center">
+```
+sql-data-story-engine/
+│
+├── 📄 sql_lab.sql          ← All 17 queries, commented
+├── 📸 sc1.png – sc17.png  ← Output screenshots per step
+└── 📖 README.md            ← You are here
+```
 
-> 💬 *"Data is the new oil — SQL is the refinery that makes it useful."*
+---
 
-| 🏷️ Detail | 📌 Info |
-|:---------:|:-------:|
-| 🗂️ Project | University Course Management System |
-| 📚 Subject | SQL — Final Project |
-| 🐬 Language | MySQL 8.0+ |
-| 📄 License | MIT |
+## ◈ What Makes This Different
 
-</div>
+| Typical SQL Tutorial | This Project |
+|----------------------|--------------|
+| "Here's SELECT syntax" | "Here's a real business question" |
+| Isolated examples | Connected 17-step narrative |
+| Memorize functions | Understand when and why to use each |
+| Just gets it working | Thinks about data quality & cleaning |
+| No business context | Discounts, salary bands, rankings |
 
 ---
 
 <div align="center">
 
-### ⭐ If this project helped you learn SQL better, please give it a Star! ⭐
+---
 
-```
-╔════════════════════════════════════════╗
-║   🎓 University Course Management      ║
-║      System — Built with ❤️ and SQL    ║
-╚════════════════════════════════════════╝
-```
+*"Data is just noise until someone asks the right question."*
+
+**Built with curiosity. Driven by logic.**
+
+---
+
+**👨‍💻 Dhruv Prajapati**
+
+![Made with SQL](https://img.shields.io/badge/Made%20with-SQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
+![Love](https://img.shields.io/badge/Made%20with-%E2%9D%A4-red?style=flat-square)
 
 </div>
