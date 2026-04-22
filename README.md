@@ -323,7 +323,7 @@ DELETE FROM Students WHERE StudentID = 31;
 
 **📸 Output Screenshot:**
 
-![Query 1 - CRUD Operations](Screenshots/sc1.png)
+![Query 1 - CRUD Operations](sc1.png)
 
 ---
 
