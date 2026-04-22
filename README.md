@@ -639,7 +639,7 @@ ORDER BY StudentID;
 | # | Query | Screenshot |
 |:-:|:------|:----------:|
 | 1 | CRUD Operations | [sc1.png] |
-| 2 | Filter by Enrollment Date | [sc2.png](Screenshots/sc2.png) |
+| 2 | Filter by Enrollment Date  (sc2.png) |
 | 3 | Department-wise Courses (LIMIT) | [sc3.png](Screenshots/sc3.png) |
 | 4 | GROUP BY + HAVING | [sc4.png](Screenshots/sc4.png) |
 | 5 | INTERSECT (Double JOIN) | [sc5.png](Screenshots/sc5.png) |
