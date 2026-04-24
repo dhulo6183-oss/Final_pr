@@ -133,6 +133,12 @@ Stores marks and grade obtained by students in each course.
 
 ---
 
+
+
+---
+
+
+
 ## ⚙️ SQL Features Covered
 
 | # | Feature | Description |
