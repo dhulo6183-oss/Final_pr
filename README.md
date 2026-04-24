@@ -39,7 +39,7 @@ d (Database)
 ## 📸 Database Screenshots
 
 ### 👨‍🎓 Students Table
-![Students](S1.jpeg)
+![Students](s1.png)
 
 ---
 
