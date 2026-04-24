@@ -38,7 +38,7 @@ Stores all academic departments offered by the institution.
 | department_id | INT (PK) | Unique department ID |
 | department_name | VARCHAR(50) | Name of the department |
 
-![Departments Table](d1.Png)
+![Departments Table](d1.png)
 
 ---
 
