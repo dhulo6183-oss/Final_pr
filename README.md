@@ -1,394 +1,372 @@
-<div align="center">
+# 🎓 Student Management System — SQL Project
 
-# 🎓 Student Management System
-### — MySQL Database Project —
-
-<br>
-
-![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![SQL](https://img.shields.io/badge/SQL-DDL%20%7C%20DML%20%7C%20DQL-F97316?style=for-the-badge&logo=databricks&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Complete%20✓-22C55E?style=for-the-badge)
-![Tables](https://img.shields.io/badge/Tables-7-6366F1?style=for-the-badge)
-![License](https://img.shields.io/badge/License-Academic-EC4899?style=for-the-badge)
-
-<br>
-
-> 💡 **A fully normalized relational database** designed to manage Students, Faculty, Courses,  
-> Enrollments, Attendance & Grades — covering every core SQL concept from DDL to Window Functions.
-
-</div>
-
----
-
-## 📌 Table of Contents
-
-| # | Section |
-|---|---------|
-| 1 | [Project Overview](#-project-overview) |
-| 2 | [Project Structure](#-project-structure) |
-| 3 | [ER Diagram](#-er-diagram) |
-| 4 | [Table: Departments](#1--departments) |
-| 5 | [Table: Students](#2--students) |
-| 6 | [Table: Faculty](#3--faculty) |
-| 7 | [Table: Courses](#4--courses) |
-| 8 | [Table: Enrollments](#5--enrollments) |
-| 9 | [Table: Attendance](#6--attendance) |
-| 10 | [Table: Grades](#7--grades) |
-| 11 | [SQL Concepts Covered](#-sql-concepts-covered) |
-| 12 | [Key Queries](#-key-queries-snapshot) |
-| 13 | [Constraints Summary](#-constraints--keys-summary) |
-| 14 | [How to Run](#-how-to-run) |
-
----
-
-## 🚀 Project Overview
-
-This project implements a **complete Student Management System** using **MySQL**. It models a real-world academic institution with 7 interlinked tables:
-
-- 🏢 **10 Departments** — Computer Science, Mechanical, Civil, Electrical, IT, AI, Data Science, Chemical, Automobile, Electronics
-- 🎓 **10 Students** — Full personal & academic records
-- 👩‍🏫 **10 Faculty Members** — Assigned to departments and courses
-- 📚 **10 Courses** — Each taught by a dedicated faculty member
-- 📋 **Enrollments** — With composite UNIQUE key to prevent duplicates
-- 📅 **Attendance** — Daily tracking with Present / Absent / Late
-- 🏆 **Grades** — Marks + Letter Grade per student per course
+A complete relational database project built with **MySQL**, covering student records, faculty, courses, enrollments, attendance, and grades. Includes full CRUD operations, joins, window functions, aggregate queries, and more.
 
 ---
 
 ## 📁 Project Structure
 
 ```
-StudentManagementSystem/
+student-management/
 │
-├── 📄 students.SQL          ← Full schema + seed data + all SQL queries
-├── 📘 README.md             ← Project documentation (this file)
+├── students.SQL            ← Main SQL file (DDL + DML + Queries)
 │
-└── 📂 ss/                   ← Screenshots of all MySQL table outputs
-    ├── 🖼️ DEPARTMENTS.png
-    ├── 🖼️ STUDENTS.png
-    ├── 🖼️ Faculty.png
-    ├── 🖼️ Courses.png
-    ├── 🖼️ Enrollments.png
-    ├── 🖼️ Attendance.png
-    └── 🖼️ Grades.png
+├── tables/
+│   ├── DEPARTMENTS.png     ← Screenshot: Departments table data
+│   ├── STUDENTS.png        ← Screenshot: Students table data
+│   ├── Faculty.png         ← Screenshot: Faculty table data
+│   ├── Courses.png         ← Screenshot: Courses table data
+│   ├── Enrollments.png     ← Screenshot: Enrollments table data
+│   ├── Attendance.png      ← Screenshot: Attendance table data
+│   └── Grades.png          ← Screenshot: Grades table data
+│
+└── README.md               ← This file
 ```
 
 ---
 
-## 🗄️ ER Diagram
+## 🗄️ Database Schema
+
+### 1. `Departments`
+Stores department information.
+
+| Column          | Type        | Constraint  |
+|-----------------|-------------|-------------|
+| department_id   | INT         | PRIMARY KEY |
+| department_name | VARCHAR(50) |             |
+
+**Sample Data:** Computer Science, Mechanical, Civil, Electrical, IT, AI, Data Science, Chemical, Automobile, Electronics
+
+---
+
+### 2. `Students`
+Stores student personal and academic details.
+
+| Column         | Type         | Constraint                        |
+|----------------|--------------|-----------------------------------|
+| student_id     | INT          | PRIMARY KEY                       |
+| name           | VARCHAR(50)  |                                   |
+| dob            | DATE         |                                   |
+| gender         | VARCHAR(10)  |                                   |
+| email          | VARCHAR(100) |                                   |
+| phone_number   | VARCHAR(15)  |                                   |
+| address        | VARCHAR(100) |                                   |
+| admission_date | DATE         |                                   |
+| department_id  | INT          | FOREIGN KEY → Departments         |
+
+**Sample Data:** 10 students from cities like Surat, Delhi, Mumbai, Pune — admitted on 2022-06-01.
+
+---
+
+### 3. `Faculty`
+Stores faculty contact and department information.
+
+| Column        | Type         | Constraint                |
+|---------------|--------------|---------------------------|
+| faculty_id    | INT          | PRIMARY KEY               |
+| name          | VARCHAR(50)  |                           |
+| email         | VARCHAR(100) |                           |
+| phone_number  | VARCHAR(15)  |                           |
+| department_id | INT          | FOREIGN KEY → Departments |
+
+**Sample Data:** Dr Sharma, Dr Patel, Dr Khan, Dr Mehta, Dr Rao, Dr Singh, Dr Das, Dr Iyer, Dr Verma, Dr Joshi
+
+---
+
+### 4. `Courses`
+Maps courses to faculty members.
+
+| Column      | Type        | Constraint           |
+|-------------|-------------|----------------------|
+| course_id   | INT         | PRIMARY KEY          |
+| course_name | VARCHAR(50) |                      |
+| faculty_id  | INT         | FOREIGN KEY → Faculty|
+
+**Sample Data:** DBMS, Thermodynamics, Structures, Circuits, AI Basics, ML, Data Mining, Chemistry, Automobile Engg, Electronics
+
+---
+
+### 5. `Enrollments`
+Tracks which students are enrolled in which courses.
+
+| Column          | Type | Constraint                         |
+|-----------------|------|------------------------------------|
+| enrollment_id   | INT  | PRIMARY KEY                        |
+| student_id      | INT  | FOREIGN KEY → Students             |
+| course_id       | INT  | FOREIGN KEY → Courses              |
+| enrollment_date | DATE |                                    |
+|                 |      | UNIQUE(student_id, course_id)      |
+
+---
+
+### 6. `Attendance`
+Tracks daily attendance per student per course.
+
+| Column          | Type        | Constraint            |
+|-----------------|-------------|-----------------------|
+| attendance_id   | INT         | PRIMARY KEY           |
+| student_id      | INT         | FOREIGN KEY → Students|
+| course_id       | INT         | FOREIGN KEY → Courses |
+| attendance_date | DATE        |                       |
+| status          | VARCHAR(10) | Present / Absent / Late|
+
+---
+
+### 7. `Grades`
+Stores marks and letter grades per student per course.
+
+| Column         | Type        | Constraint            |
+|----------------|-------------|-----------------------|
+| grade_id       | INT         | PRIMARY KEY           |
+| student_id     | INT         | FOREIGN KEY → Students|
+| course_id      | INT         | FOREIGN KEY → Courses |
+| marks_obtained | INT         |                       |
+| grade          | VARCHAR(2)  | A / B / C / D         |
+
+**Sample Data:** Marks range from 45 to 95; grades A, B, C, D assigned accordingly.
+
+---
+
+## 🔗 Entity Relationship Overview
 
 ```
-┌──────────────────┐          ┌─────────────────────────────────────────────┐
-│   DEPARTMENTS    │◄─────────│                  STUDENTS                    │
-│──────────────────│          │─────────────────────────────────────────────│
-│ department_id PK │          │ student_id PK                                │
-│ department_name  │          │ name, dob, gender, email                     │
-└────────▲─────────┘          │ phone_number, address, admission_date        │
-         │                    │ department_id FK                             │
-         │                    └──────────────┬──────────────────────────────┘
-         │                                   │
-  ┌──────┴────────┐              ┌───────────▼────────────┐
-  │    FACULTY    │              │      ENROLLMENTS        │
-  │───────────────│              │────────────────────────│
-  │ faculty_id PK │              │ enrollment_id PK        │
-  │ name, email   │              │ student_id FK           │
-  │ phone_number  │              │ course_id FK            │
-  │ dept_id FK    │              │ enrollment_date         │
-  └──────┬────────┘              │ UNIQUE(student,course)  │
-         │                       └────────────────────────┘
-  ┌──────▼────────┐
-  │    COURSES    │──────────────┬──────────────────────────┐
-  │───────────────│              │                          │
-  │ course_id PK  │    ┌─────────▼──────────┐   ┌──────────▼──────────┐
-  │ course_name   │    │    ATTENDANCE       │   │       GRADES         │
-  │ faculty_id FK │    │────────────────────│   │─────────────────────│
-  └───────────────┘    │ attendance_id PK    │   │ grade_id PK          │
-                       │ student_id FK       │   │ student_id FK        │
-                       │ course_id FK        │   │ course_id FK         │
-                       │ attendance_date     │   │ marks_obtained       │
-                       │ status              │   │ grade                │
-                       └─────────────────────┘   └──────────────────────┘
+Departments
+    ├── Students (department_id)
+    └── Faculty  (department_id)
+           └── Courses (faculty_id)
+                  ├── Enrollments (course_id) ←── Students (student_id)
+                  ├── Attendance  (course_id) ←── Students (student_id)
+                  └── Grades      (course_id) ←── Students (student_id)
 ```
 
 ---
 
-## 📊 Tables — Schema · Data · Screenshots
+## 📋 SQL Queries Reference
 
----
-
-### 1. 🏢 Departments
-
-> Stores all academic departments in the institution.
-
-**Schema:**
-
-| Column | Type | Constraint | Description |
-|--------|------|-----------|-------------|
-| `department_id` | INT | `PRIMARY KEY` | Unique department identifier |
-| `department_name` | VARCHAR(50) | NOT NULL | Name of the department |
-
-**Data:**
-
-| department_id | department_name |
-|:---:|:---|
-| 1 | Computer Science |
-| 2 | Mechanical |
-| 3 | Civil |
-| 4 | Electrical |
-| 5 | IT |
-| 6 | AI |
-| 7 | Data Science |
-| 8 | Chemical |
-| 9 | Automobile |
-| 10 | Electronics |
-
-**📸 Screenshot:**
-
-![Departments](ss/DEPARTMENTS.png)
-
----
-
-### 2. 🎓 Students
-
-> Stores complete personal and academic information for every student.
-
-**Schema:**
-
-| Column | Type | Constraint | Description |
-|--------|------|-----------|-------------|
-| `student_id` | INT | `PRIMARY KEY` | Unique student identifier |
-| `name` | VARCHAR(50) | — | Full name |
-| `dob` | DATE | — | Date of birth |
-| `gender` | VARCHAR(10) | — | Male / Female |
-| `email` | VARCHAR(100) | — | Email address |
-| `phone_number` | VARCHAR(15) | — | Contact number |
-| `address` | VARCHAR(100) | — | Residential address |
-| `admission_date` | DATE | — | Date of admission |
-| `department_id` | INT | `FK → Departments` | Enrolled department |
-
-**Data:**
-
-| student_id | name | dob | gender | email | phone | address | admission_date | dept_id |
-|:---:|:---|:---:|:---:|:---|:---:|:---:|:---:|:---:|
-| 1 | Amit | 2002-01-01 | Male | amit@gmail.com | 9876543210 | Surat | 2022-06-01 | 1 |
-| 2 | Riya | 2002-02-02 | Female | riya@gmail.com | 9876543211 | Delhi | 2022-06-01 | 1 |
-| 3 | Rahul | 2002-03-03 | Male | rahul@gmail.com | 9876543212 | Mumbai | 2022-06-01 | 2 |
-| 4 | Sneha | 2002-04-04 | Female | sneha@gmail.com | 9876543213 | Pune | 2022-06-01 | 3 |
-| 5 | Karan | 2002-05-05 | Male | karan@gmail.com | 9876543214 | Surat | 2022-06-01 | 1 |
-| 6 | Neha | 2002-06-06 | Female | neha@gmail.com | 9876543215 | Delhi | 2022-06-01 | 2 |
-| 7 | Vikas | 2002-07-07 | Male | vikas@gmail.com | 9876543216 | Mumbai | 2022-06-01 | 1 |
-| 8 | Pooja | 2002-08-08 | Female | pooja@gmail.com | 9876543217 | Surat | 2022-06-01 | 4 |
-| 9 | Arjun | 2002-09-09 | Male | arjun@gmail.com | 9876543218 | Delhi | 2022-06-01 | 1 |
-| 10 | Meera | 2002-10-10 | Female | meera@gmail.com | 9876543219 | Pune | 2022-06-01 | 3 |
-
-**📸 Screenshot:**
-
-![Students](ss/STUDENTS.png)
-
----
-
-### 3. 👩‍🏫 Faculty
-
-> Stores all faculty members and their department assignments.
-
-**Schema:**
-
-| Column | Type | Constraint | Description |
-|--------|------|-----------|-------------|
-| `faculty_id` | INT | `PRIMARY KEY` | Unique faculty identifier |
-| `name` | VARCHAR(50) | — | Full name |
-| `email` | VARCHAR(100) | — | Email address |
-| `phone_number` | VARCHAR(15) | — | Contact number |
-| `department_id` | INT | `FK → Departments` | Assigned department |
-
-**Data:**
-
-| faculty_id | name | email | phone_number | department_id |
-|:---:|:---|:---|:---:|:---:|
-| 1 | Dr Sharma | sharma@gmail.com | 9123456780 | 1 |
-| 2 | Dr Patel | patel@gmail.com | 9123456781 | 2 |
-| 3 | Dr Khan | khan@gmail.com | 9123456782 | 3 |
-| 4 | Dr Mehta | mehta@gmail.com | 9123456783 | 4 |
-| 5 | Dr Rao | rao@gmail.com | 9123456784 | 5 |
-| 6 | Dr Singh | singh@gmail.com | 9123456785 | 6 |
-| 7 | Dr Das | das@gmail.com | 9123456786 | 7 |
-| 8 | Dr Iyer | iyer@gmail.com | 9123456787 | 8 |
-| 9 | Dr Verma | verma@gmail.com | 9123456788 | 9 |
-| 10 | Dr Joshi | joshi@gmail.com | 9123456789 | 10 |
-
-**📸 Screenshot:**
-
-![Faculty](ss/Faculty.png)
-
----
-
-### 4. 📚 Courses
-
-> Stores all courses offered and the faculty assigned to teach each one.
-
-**Schema:**
-
-| Column | Type | Constraint | Description |
-|--------|------|-----------|-------------|
-| `course_id` | INT | `PRIMARY KEY` | Unique course identifier |
-| `course_name` | VARCHAR(50) | — | Name of the course |
-| `faculty_id` | INT | `FK → Faculty` | Teaching faculty |
-
-**Data:**
-
-| course_id | course_name | faculty_id |
-|:---:|:---|:---:|
-| 1 | DBMS | 1 |
-| 2 | Thermodynamics | 2 |
-| 3 | Structures | 3 |
-| 4 | Circuits | 4 |
-| 5 | AI Basics | 5 |
-| 6 | ML | 6 |
-| 7 | Data Mining | 7 |
-| 8 | Chemistry | 8 |
-| 9 | Automobile Engg | 9 |
-| 10 | Electronics | 10 |
-
-**📸 Screenshot:**
-
-![Courses](ss/Courses.png)
-
----
-
-### 5. 📝 Enrollments
-
-> Tracks which student enrolled in which course. A composite `UNIQUE` key prevents duplicate enrollments.
-
-**Schema:**
-
-| Column | Type | Constraint | Description |
-|--------|------|-----------|-------------|
-| `enrollment_id` | INT | `PRIMARY KEY` | Unique enrollment ID |
-| `student_id` | INT | `FK → Students` | Enrolled student |
-| `course_id` | INT | `FK → Courses` | Enrolled course |
-| `enrollment_date` | DATE | — | Date of enrollment |
-| *(composite)* | — | `UNIQUE(student_id, course_id)` | Prevents duplicate enrollment |
-
-**Data:**
-
-| enrollment_id | student_id | course_id | enrollment_date |
-|:---:|:---:|:---:|:---:|
-| 1 | 1 | 1 | 2022-07-01 |
-| 2 | 2 | 2 | 2022-07-02 |
-| 3 | 3 | 3 | 2022-07-03 |
-| 4 | 4 | 4 | 2022-07-04 |
-| 5 | 5 | 5 | 2022-07-05 |
-| 6 | 6 | 6 | 2022-07-06 |
-| 7 | 7 | 7 | 2022-07-07 |
-| 8 | 8 | 8 | 2022-07-08 |
-| 9 | 9 | 9 | 2022-07-09 |
-| 10 | 10 | 10 | 2022-07-10 |
-
-**📸 Screenshot:**
-
-![Enrollments](ss/Enrollments.png)
-
----
-
-### 6. 📅 Attendance
-
-> Records daily attendance per student per course with Present / Absent / Late status.
-
-**Schema:**
-
-| Column | Type | Constraint | Description |
-|--------|------|-----------|-------------|
-| `attendance_id` | INT | `PRIMARY KEY` | Unique attendance record |
-| `student_id` | INT | `FK → Students` | Student reference |
-| `course_id` | INT | `FK → Courses` | Course reference |
-| `attendance_date` | DATE | — | Date of class |
-| `status` | VARCHAR(10) | — | `Present` / `Absent` / `Late` |
-
-**Data:**
-
-| attendance_id | student_id | course_id | attendance_date | status |
-|:---:|:---:|:---:|:---:|:---:|
-| 1 | 1 | 1 | 2022-07-02 | ✅ Present |
-| 2 | 2 | 2 | 2022-07-03 | ❌ Absent |
-| 3 | 3 | 3 | 2022-07-04 | ✅ Present |
-| 4 | 4 | 4 | 2022-07-05 | ⏰ Late |
-| 5 | 5 | 5 | 2022-07-06 | ✅ Present |
-| 6 | 6 | 6 | 2022-07-07 | ❌ Absent |
-| 7 | 7 | 7 | 2022-07-08 | ✅ Present |
-| 8 | 8 | 8 | 2022-07-09 | ⏰ Late |
-| 9 | 9 | 9 | 2022-07-10 | ✅ Present |
-| 10 | 10 | 10 | 2022-07-11 | ❌ Absent |
-
-**📸 Screenshot:**
-
-![Attendance](ss/Attendance.png)
-
----
-
-### 7. 🏆 Grades
-
-> Stores the marks and letter grade each student received per course.
-
-**Schema:**
-
-| Column | Type | Constraint | Description |
-|--------|------|-----------|-------------|
-| `grade_id` | INT | `PRIMARY KEY` | Unique grade record |
-| `student_id` | INT | `FK → Students` | Student reference |
-| `course_id` | INT | `FK → Courses` | Course reference |
-| `marks_obtained` | INT | — | Marks scored (out of 100) |
-| `grade` | VARCHAR(2) | — | A / B / C / D |
-
-**Data:**
-
-| grade_id | student_id | course_id | marks_obtained | grade | performance |
-|:---:|:---:|:---:|:---:|:---:|:---|
-| 1 | 1 | 1 | 85 | 🥇 A | Excellent |
-| 2 | 2 | 2 | 75 | 🥈 B | Good |
-| 3 | 3 | 3 | 65 | 🥉 C | Average |
-| 4 | 4 | 4 | 55 | D | Below Average |
-| 5 | 5 | 5 | 95 | 🥇 A | Excellent |
-| 6 | 6 | 6 | 45 | D | Below Average |
-| 7 | 7 | 7 | 88 | 🥇 A | Excellent |
-| 8 | 8 | 8 | 70 | 🥈 B | Good |
-| 9 | 9 | 9 | 92 | 🥇 A | Excellent |
-| 10 | 10 | 10 | 60 | 🥉 C | Average |
-
-**📸 Screenshot:**
-
-![Grades](ss/Grades.png)
-
----
-
-## 🧠 SQL Concepts Covered
-
-| # | Concept | Topics Practiced |
-|:---:|:---|:---|
-| 1 | **DDL** | `CREATE TABLE`, `PRIMARY KEY`, `FOREIGN KEY`, `UNIQUE` |
-| 2 | **CRUD Operations** | `INSERT`, `UPDATE`, `DELETE`, `SELECT` |
-| 3 | **Clauses** | `WHERE`, `HAVING`, `LIMIT`, `ORDER BY`, `GROUP BY` |
-| 4 | **Operators** | `AND`, `OR`, `NOT`, `IN`, `BETWEEN`, `IS NULL` |
-| 5 | **Aggregate Functions** | `AVG()`, `COUNT()`, `MAX()`, `MIN()` |
-| 6 | **JOINs** | `INNER JOIN`, `LEFT JOIN`, `RIGHT JOIN`, `FULL OUTER` via UNION |
-| 7 | **Subqueries** | Scalar and correlated subqueries |
-| 8 | **Date Functions** | `MONTH()`, `YEAR()`, `CURDATE()`, `DATE_FORMAT()` |
-| 9 | **String Functions** | `UPPER()`, `TRIM()`, `IFNULL()` |
-| 10 | **Window Functions** | `RANK() OVER`, `COUNT() OVER`, `PARTITION BY` |
-| 11 | **CASE Expressions** | Performance labels, attendance categorization |
-
----
-
-## ⚡ Key Queries Snapshot
+### 🔧 1. CRUD Operations
 
 ```sql
--- 🏅 Rank students by marks
+-- INSERT a new student (with NULL email)
+INSERT INTO Students VALUES
+(11,'Rohit','2003-01-01','Male',NULL,'9999999999','Surat','2023-06-01',1);
+
+-- UPDATE phone number
+UPDATE Students
+SET phone_number = '8888888888'
+WHERE student_id = 1;
+
+-- DELETE a student
+DELETE FROM Students WHERE student_id = 11;
+```
+
+---
+
+### 🔍 2. SQL Clauses — WHERE, HAVING, LIMIT
+
+```sql
+-- Students in Computer Science department
+SELECT s.*
+FROM Students s
+JOIN Departments d ON s.department_id = d.department_id
+WHERE d.department_name = 'Computer Science';
+
+-- Top 10 highest scoring students
+SELECT * FROM Grades
+ORDER BY marks_obtained DESC
+LIMIT 10;
+
+-- Students with attendance below 75%
+SELECT student_id,
+  COUNT(CASE WHEN status='Present' THEN 1 END)*100/COUNT(*) AS attendance_percentage
+FROM Attendance
+GROUP BY student_id
+HAVING COUNT(CASE WHEN status='Present' THEN 1 END)*100/COUNT(*) < 75;
+```
+
+---
+
+### ⚙️ 3. SQL Operators — AND, OR, NOT
+
+```sql
+-- Students with marks below 50 (failing)
+SELECT g.student_id
+FROM Grades g
+WHERE marks_obtained < 50;
+
+-- Students with marks > 90 OR marked Present
+SELECT DISTINCT s.student_id
+FROM Students s
+LEFT JOIN Grades g ON s.student_id = g.student_id
+LEFT JOIN Attendance a ON s.student_id = a.student_id
+WHERE g.marks_obtained > 90 OR a.status = 'Present';
+
+-- Faculty NOT assigned to any course
+SELECT * FROM Faculty
+WHERE faculty_id NOT IN (SELECT faculty_id FROM Courses);
+```
+
+---
+
+### 📊 4. ORDER BY & GROUP BY
+
+```sql
+-- Alphabetical list of students
+SELECT * FROM Students ORDER BY name;
+
+-- Count students per department
+SELECT department_id, COUNT(*) AS total_students
+FROM Students
+GROUP BY department_id;
+
+-- Average marks per course
+SELECT course_id, AVG(marks_obtained) AS avg_marks
+FROM Grades
+GROUP BY course_id;
+```
+
+---
+
+### 🧮 5. Aggregate Functions
+
+```sql
+-- Average attendance count
+SELECT AVG(att_count)
+FROM (
+  SELECT COUNT(*) AS att_count
+  FROM Attendance
+  WHERE status='Present'
+  GROUP BY student_id
+);
+
+-- Highest & lowest marks per course
+SELECT course_id,
+  MAX(marks_obtained) AS highest,
+  MIN(marks_obtained) AS lowest
+FROM Grades
+GROUP BY course_id;
+
+-- Total students per department
+SELECT department_id, COUNT(*)
+FROM Students
+GROUP BY department_id;
+```
+
+---
+
+### 🔗 6. JOINs
+
+```sql
+-- INNER JOIN: Students with their department names
+SELECT s.name, d.department_name
+FROM Students s
+INNER JOIN Departments d ON s.department_id = d.department_id;
+
+-- LEFT JOIN: Students NOT enrolled in any course
+SELECT s.*
+FROM Students s
+LEFT JOIN Enrollments e ON s.student_id = e.student_id
+WHERE e.student_id IS NULL;
+
+-- RIGHT JOIN: Courses without a faculty assigned
+SELECT c.*
+FROM Faculty f
+RIGHT JOIN Courses c ON f.faculty_id = c.faculty_id
+WHERE f.faculty_id IS NULL;
+
+-- FULL OUTER JOIN (via UNION): All students with or without grades
+SELECT s.student_id, g.grade
+FROM Students s LEFT JOIN Grades g ON s.student_id = g.student_id
+UNION
+SELECT s.student_id, g.grade
+FROM Students s RIGHT JOIN Grades g ON s.student_id = g.student_id;
+```
+
+---
+
+### 🔄 7. Subqueries
+
+```sql
+-- Students with marks above class average
+SELECT *
+FROM Grades
+WHERE marks_obtained > (SELECT AVG(marks_obtained) FROM Grades);
+
+-- Students absent more than 10 times
+SELECT student_id
+FROM Attendance
+WHERE status='Absent'
+GROUP BY student_id
+HAVING COUNT(*) > 10;
+```
+
+---
+
+### 📅 8. Date Functions
+
+```sql
+-- Extract month from attendance date
+SELECT MONTH(attendance_date) AS month FROM Attendance;
+
+-- Years since student admission
+SELECT student_id,
+  YEAR(CURDATE()) - YEAR(admission_date) AS years
+FROM Students;
+
+-- Format date as DD-MM-YYYY
+SELECT DATE_FORMAT(attendance_date,'%d-%m-%Y') FROM Attendance;
+```
+
+---
+
+### 🔤 9. String Functions
+
+```sql
+-- Uppercase faculty names
+SELECT UPPER(name) FROM Faculty;
+
+-- Trim whitespace from student names
+SELECT TRIM(name) FROM Students;
+
+-- Replace NULL emails with placeholder
+SELECT IFNULL(email,'Email Not Provided') FROM Students;
+```
+
+---
+
+### 🪟 10. Window Functions
+
+```sql
+-- Rank students by marks (highest first)
 SELECT student_id, marks_obtained,
   RANK() OVER (ORDER BY marks_obtained DESC) AS rank_no
 FROM Grades;
+
+-- Cumulative attendance count per student
+SELECT student_id,
+  COUNT(*) OVER (PARTITION BY student_id) AS total_attendance
+FROM Attendance;
+
+-- Running total of enrollments per month
+SELECT MONTH(enrollment_date) AS month,
+  COUNT(*) OVER (ORDER BY MONTH(enrollment_date)) AS running_total
+FROM Enrollments;
 ```
 
+---
+
+### 🔀 11. CASE Expressions
+
 ```sql
--- 📊 Attendance category per student
+-- Student performance category based on marks
+SELECT student_id, marks_obtained,
+  CASE
+    WHEN marks_obtained > 90 THEN 'Excellent'
+    WHEN marks_obtained BETWEEN 75 AND 90 THEN 'Good'
+    ELSE 'Needs Improvement'
+  END AS performance
+FROM Grades;
+
+-- Attendance regularity category
 SELECT student_id,
   CASE
     WHEN COUNT(CASE WHEN status='Present' THEN 1 END)*100/COUNT(*) > 80 THEN 'Regular'
@@ -399,87 +377,51 @@ FROM Attendance
 GROUP BY student_id;
 ```
 
-```sql
--- 🔗 Students with their departments (INNER JOIN)
-SELECT s.name, d.department_name
-FROM Students s
-INNER JOIN Departments d ON s.department_id = d.department_id;
-```
+---
 
-```sql
--- 📈 Students scoring above average (Subquery)
-SELECT * FROM Grades
-WHERE marks_obtained > (SELECT AVG(marks_obtained) FROM Grades);
-```
+## 🖼️ Table Screenshots
 
-```sql
--- 🎯 Performance label using CASE
-SELECT student_id, marks_obtained,
-  CASE
-    WHEN marks_obtained > 90 THEN 'Excellent'
-    WHEN marks_obtained BETWEEN 75 AND 90 THEN 'Good'
-    ELSE 'Needs Improvement'
-  END AS performance
-FROM Grades;
-```
+| Table        | Preview File            | Description                              |
+|--------------|-------------------------|------------------------------------------|
+| Departments  | `tables/DEPARTMENTS.png`| 10 engineering departments               |
+| Students     | `tables/STUDENTS.png`   | 10 students with personal/dept info      |
+| Faculty      | `tables/Faculty.png`    | 10 faculty members with contact info     |
+| Courses      | `tables/Courses.png`    | 10 courses mapped to faculty             |
+| Enrollments  | `tables/Enrollments.png`| Student-course enrollment records        |
+| Attendance   | `tables/Attendance.png` | Attendance records (Present/Absent/Late) |
+| Grades       | `tables/Grades.png`     | Marks and letter grades per student      |
 
 ---
 
-## 🔐 Constraints & Keys Summary
+## ⚙️ How to Run
 
-| Table | Primary Key | Foreign Key(s) | Special Constraint |
-|:---|:---:|:---|:---|
-| `Departments` | department_id | — | — |
-| `Students` | student_id | department_id → Departments | — |
-| `Faculty` | faculty_id | department_id → Departments | — |
-| `Courses` | course_id | faculty_id → Faculty | — |
-| `Enrollments` | enrollment_id | student_id, course_id | `UNIQUE(student_id, course_id)` |
-| `Attendance` | attendance_id | student_id, course_id | — |
-| `Grades` | grade_id | student_id, course_id | — |
+1. Open MySQL Workbench or any MySQL client.
+2. Run the full `students.SQL` file:
+   ```sql
+   SOURCE /path/to/students.SQL;
+   ```
+3. Or execute section by section — DDL first, then DML inserts, then queries.
 
 ---
 
-## 🚀 How to Run
+## 📌 Key Concepts Covered
 
-```bash
-# Step 1 — Open MySQL
-mysql -u root -p
-
-# Step 2 — Run the SQL file
-SOURCE /path/to/students.SQL;
-
-# Step 3 — Verify
-USE d;
-SHOW TABLES;
-```
-
-**Expected output:**
-```
-+─────────────────+
-| Tables_in_d     |
-+─────────────────+
-| Attendance      |
-| Courses         |
-| Departments     |
-| Enrollments     |
-| Faculty         |
-| Grades          |
-| Students        |
-+─────────────────+
-```
+| Concept             | Description                                      |
+|---------------------|--------------------------------------------------|
+| DDL                 | CREATE TABLE with PRIMARY KEY, FOREIGN KEY, UNIQUE|
+| DML                 | INSERT, UPDATE, DELETE                           |
+| Clauses             | WHERE, HAVING, LIMIT, ORDER BY, GROUP BY         |
+| Operators           | AND, OR, NOT, IN, NOT IN                         |
+| Joins               | INNER, LEFT, RIGHT, FULL OUTER (via UNION)       |
+| Aggregate Functions | COUNT, AVG, MAX, MIN                             |
+| Subqueries          | Scalar & correlated subqueries                   |
+| Date Functions      | MONTH(), YEAR(), CURDATE(), DATE_FORMAT()        |
+| String Functions    | UPPER(), TRIM(), IFNULL()                        |
+| Window Functions    | RANK(), COUNT() OVER PARTITION BY                |
+| CASE Expressions    | Conditional logic inside SELECT                  |
 
 ---
 
-<div align="center">
+## 👨‍💻 Author
 
-### 🌟 Built with passion for learning SQL 🌟
-
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
-![Normalized](https://img.shields.io/badge/Database-Normalized-success?style=flat-square)
-![Academic](https://img.shields.io/badge/Project-Academic-blueviolet?style=flat-square)
-
-> *"Data is the new oil — and SQL is the refinery."*
-
-⭐ **If this project helped you, give it a star!** ⭐
-
-</div>
+Built as a complete SQL learning project demonstrating core relational database concepts using a Student Management System domain.
