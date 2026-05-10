@@ -1,427 +1,306 @@
-# 🎓 Student Management System — SQL Project
+Regional Sales Pipeline Dashboard – README
 
-A complete relational database project built with **MySQL**, covering student records, faculty, courses, enrollments, attendance, and grades. Includes full CRUD operations, joins, window functions, aggregate queries, and more.
+Project Overview
 
----
+This project presents a complete Regional Sales Pipeline Analysis Dashboard for the year 2025.
 
-## 📁 Project Structure
+The dashboard identifies:
 
-```
-student-management/
-│
-├── students.SQL            ← Main SQL file (DDL + DML + Queries)
-│
-├── tables/
-│   ├── DEPARTMENTS.png     ← Screenshot: Departments table data
-│   ├── STUDENTS.png        ← Screenshot: Students table data
-│   ├── Faculty.png         ← Screenshot: Faculty table data
-│   ├── Courses.png         ← Screenshot: Courses table data
-│   ├── Enrollments.png     ← Screenshot: Enrollments table data
-│   ├── Attendance.png      ← Screenshot: Attendance table data
-│   └── Grades.png          ← Screenshot: Grades table data
-│
-└── README.md               ← This file
-```
+Revenue bottlenecks
+Cancellation patterns
+Product performance
+Regional performance
+Revenue loss
+Top sales agents
 
----
+The project is designed using:
 
-## 🗄️ Database Schema
+HTML
+CSS
+JavaScript
+Chart.js
+SQL
+Dashboard Preview
 
-### 1. `Departments`
-Stores department information.
+Project Objective
 
-| Column          | Type        | Constraint  |
-|-----------------|-------------|-------------|
-| department_id   | INT         | PRIMARY KEY |
-| department_name | VARCHAR(50) |             |
+The main objective of this project is to analyze business sales performance across different regions and identify areas causing revenue loss.
 
-**Sample Data:** Computer Science, Mechanical, Civil, Electrical, IT, AI, Data Science, Chemical, Automobile, Electronics
+The dashboard helps management:
 
----
+Improve sales performance
+Reduce cancellations
+Reduce returns
+Increase completed revenue
+Improve customer satisfaction
+KPI Highlights
+KPI	Value
+Total Revenue	₹5.74 Cr
+Gross Sales	₹57.5 Cr
+Cancellation Rate	20.3%
+Top Revenue Loss	₹22.7L
+Top Category	Electronics
+Worst Region	South
+Dashboard Features
+1. Monthly Gross Sales Trend
 
-### 2. `Students`
-Stores student personal and academic details.
+Shows monthly revenue trends for 2025.
 
-| Column         | Type         | Constraint                        |
-|----------------|--------------|-----------------------------------|
-| student_id     | INT          | PRIMARY KEY                       |
-| name           | VARCHAR(50)  |                                   |
-| dob            | DATE         |                                   |
-| gender         | VARCHAR(10)  |                                   |
-| email          | VARCHAR(100) |                                   |
-| phone_number   | VARCHAR(15)  |                                   |
-| address        | VARCHAR(100) |                                   |
-| admission_date | DATE         |                                   |
-| department_id  | INT          | FOREIGN KEY → Departments         |
+Peak Months
+May
+July
+November
+Weak Months
+April
+August
+2. Category Revenue Share
+Category	Contribution
+Electronics	63.45%
+Furniture	24.66%
+Sports	5.20%
+Clothing	5.13%
+Food	1.56%
+3. Regional Cancellation & Return Analysis
 
-**Sample Data:** 10 students from cities like Surat, Delhi, Mumbai, Pune — admitted on 2022-06-01.
+The dashboard compares:
 
----
+Cancellation %
+Return %
+Regional risk
+Worst Performing Region
 
-### 3. `Faculty`
-Stores faculty contact and department information.
+South region has:
 
-| Column        | Type         | Constraint                |
-|---------------|--------------|---------------------------|
-| faculty_id    | INT          | PRIMARY KEY               |
-| name          | VARCHAR(50)  |                           |
-| email         | VARCHAR(100) |                           |
-| phone_number  | VARCHAR(15)  |                           |
-| department_id | INT          | FOREIGN KEY → Departments |
+Highest cancellation rate
+Highest return rate
+4. Top Sales Agents
+Rank	Agent	Region	Revenue
+1	Neha Gupta	North	₹77.1L
+2	Divya Menon	South	₹62.9L
+3	Ankit Joshi	East	₹60.5L
+4	Rahul Mehta	East	₹54.3L
+5	Vijay Kumar	North	₹52.8L
+5. Revenue Loss Analysis
 
-**Sample Data:** Dr Sharma, Dr Patel, Dr Khan, Dr Mehta, Dr Rao, Dr Singh, Dr Das, Dr Iyer, Dr Verma, Dr Joshi
+Top revenue loss products:
 
----
+Laptop
+Smartphone
 
-### 4. `Courses`
-Maps courses to faculty members.
+Major issue:
 
-| Column      | Type        | Constraint           |
-|-------------|-------------|----------------------|
-| course_id   | INT         | PRIMARY KEY          |
-| course_name | VARCHAR(50) |                      |
-| faculty_id  | INT         | FOREIGN KEY → Faculty|
+Electronics returns
+Technologies Used
+Technology	Purpose
+HTML5	Structure
+CSS3	Styling
+JavaScript	Functionality
+Chart.js	Charts
+SQL	Data Analysis
+CSV	Dataset
+Dataset Information
+Dataset Name
 
-**Sample Data:** DBMS, Thermodynamics, Structures, Circuits, AI Basics, ML, Data Mining, Chemistry, Automobile Engg, Electronics
+RegionalSales2025.csv
 
----
+Dataset Includes
+2000 records
+4 regions
+5 categories
+11 sales agents
+12 months data
+SQL Queries Used
+Query 1 – Monthly Sales Trend
+SELECT
+    SUBSTR(Date, 1, 7) AS Month,
+    COUNT(*) AS TotalOrders,
+    SUM(
+        CASE WHEN OrderStatus = 'Completed'
+        THEN TotalAmount ELSE 0 END
+    ) AS CompletedRevenue,
+    SUM(TotalAmount) AS GrossSales
+FROM RegionalSales2025
+GROUP BY SUBSTR(Date, 1, 7)
+ORDER BY Month;
+Purpose
 
-### 5. `Enrollments`
-Tracks which students are enrolled in which courses.
+Analyzes monthly sales trends and identifies peak and weak months.
 
-| Column          | Type | Constraint                         |
-|-----------------|------|------------------------------------|
-| enrollment_id   | INT  | PRIMARY KEY                        |
-| student_id      | INT  | FOREIGN KEY → Students             |
-| course_id       | INT  | FOREIGN KEY → Courses              |
-| enrollment_date | DATE |                                    |
-|                 |      | UNIQUE(student_id, course_id)      |
+Query 2 – Cancellation & Return Percentage by Region
+SELECT
+    Region,
+    COUNT(*) AS TotalOrders,
+    SUM(CASE WHEN OrderStatus = 'Cancelled' THEN 1 ELSE 0 END) AS Cancellations,
+    SUM(CASE WHEN OrderStatus = 'Returned' THEN 1 ELSE 0 END) AS Returns,
+    ROUND(
+        100.0 * SUM(CASE WHEN OrderStatus = 'Cancelled' THEN 1 ELSE 0 END)
+        / COUNT(*), 2
+    ) AS CancelPct,
+    ROUND(
+        100.0 * SUM(CASE WHEN OrderStatus = 'Returned' THEN 1 ELSE 0 END)
+        / COUNT(*), 2
+    ) AS ReturnPct
+FROM RegionalSales2025
+GROUP BY Region
+ORDER BY CancelPct DESC;
+Purpose
 
----
+Finds the worst-performing region based on cancellations and returns.
 
-### 6. `Attendance`
-Tracks daily attendance per student per course.
-
-| Column          | Type        | Constraint            |
-|-----------------|-------------|-----------------------|
-| attendance_id   | INT         | PRIMARY KEY           |
-| student_id      | INT         | FOREIGN KEY → Students|
-| course_id       | INT         | FOREIGN KEY → Courses |
-| attendance_date | DATE        |                       |
-| status          | VARCHAR(10) | Present / Absent / Late|
-
----
-
-### 7. `Grades`
-Stores marks and letter grades per student per course.
-
-| Column         | Type        | Constraint            |
-|----------------|-------------|-----------------------|
-| grade_id       | INT         | PRIMARY KEY           |
-| student_id     | INT         | FOREIGN KEY → Students|
-| course_id      | INT         | FOREIGN KEY → Courses |
-| marks_obtained | INT         |                       |
-| grade          | VARCHAR(2)  | A / B / C / D         |
-
-**Sample Data:** Marks range from 45 to 95; grades A, B, C, D assigned accordingly.
-
----
-
-## 🔗 Entity Relationship Overview
-
-```
-Departments
-    ├── Students (department_id)
-    └── Faculty  (department_id)
-           └── Courses (faculty_id)
-                  ├── Enrollments (course_id) ←── Students (student_id)
-                  ├── Attendance  (course_id) ←── Students (student_id)
-                  └── Grades      (course_id) ←── Students (student_id)
-```
-
----
-
-## 📋 SQL Queries Reference
-
-### 🔧 1. CRUD Operations
-
-```sql
--- INSERT a new student (with NULL email)
-INSERT INTO Students VALUES
-(11,'Rohit','2003-01-01','Male',NULL,'9999999999','Surat','2023-06-01',1);
-
--- UPDATE phone number
-UPDATE Students
-SET phone_number = '8888888888'
-WHERE student_id = 1;
-
--- DELETE a student
-DELETE FROM Students WHERE student_id = 11;
-```
-
----
-
-### 🔍 2. SQL Clauses — WHERE, HAVING, LIMIT
-
-```sql
--- Students in Computer Science department
-SELECT s.*
-FROM Students s
-JOIN Departments d ON s.department_id = d.department_id
-WHERE d.department_name = 'Computer Science';
-
--- Top 10 highest scoring students
-SELECT * FROM Grades
-ORDER BY marks_obtained DESC
+Query 3 – Revenue Loss by Product & Region
+SELECT
+    Region,
+    ProductName,
+    COUNT(*) AS LostOrders,
+    SUM(TotalAmount) AS RevenueLost
+FROM RegionalSales2025
+WHERE OrderStatus IN ('Cancelled', 'Returned')
+GROUP BY Region, ProductName
+ORDER BY RevenueLost DESC
 LIMIT 10;
+Purpose
 
--- Students with attendance below 75%
-SELECT student_id,
-  COUNT(CASE WHEN status='Present' THEN 1 END)*100/COUNT(*) AS attendance_percentage
-FROM Attendance
-GROUP BY student_id
-HAVING COUNT(CASE WHEN status='Present' THEN 1 END)*100/COUNT(*) < 75;
-```
+Identifies products causing the highest revenue loss.
 
----
+Query 4 – Average Order Value by Category
+SELECT
+    Category,
+    COUNT(*) AS TotalOrders,
+    ROUND(AVG(TotalAmount), 2) AS AvgOrderValue,
+    SUM(TotalAmount) AS TotalSales
+FROM RegionalSales2025
+GROUP BY Category
+ORDER BY AvgOrderValue DESC;
+Purpose
 
-### ⚙️ 3. SQL Operators — AND, OR, NOT
+Compares product categories based on average order value.
 
-```sql
--- Students with marks below 50 (failing)
-SELECT g.student_id
-FROM Grades g
-WHERE marks_obtained < 50;
+Query 5 – Top 5 Sales Agents
+SELECT
+    SalesAgent,
+    Region,
+    COUNT(CASE WHEN OrderStatus = 'Completed' THEN 1 END) AS CompletedOrders,
+    SUM(
+        CASE WHEN OrderStatus = 'Completed'
+        THEN TotalAmount ELSE 0 END
+    ) AS CompletedRevenue,
+    ROUND(
+        100.0 * COUNT(CASE WHEN OrderStatus = 'Completed' THEN 1 END)
+        / COUNT(*), 1
+    ) AS SuccessRate
+FROM RegionalSales2025
+GROUP BY SalesAgent, Region
+ORDER BY CompletedRevenue DESC
+LIMIT 5;
+Purpose
 
--- Students with marks > 90 OR marked Present
-SELECT DISTINCT s.student_id
-FROM Students s
-LEFT JOIN Grades g ON s.student_id = g.student_id
-LEFT JOIN Attendance a ON s.student_id = a.student_id
-WHERE g.marks_obtained > 90 OR a.status = 'Present';
+Finds top-performing sales agents.
 
--- Faculty NOT assigned to any course
-SELECT * FROM Faculty
-WHERE faculty_id NOT IN (SELECT faculty_id FROM Courses);
-```
+Query 6 – Category Contribution to Total Revenue
+SELECT
+    Category,
+    SUM(
+        CASE WHEN OrderStatus = 'Completed'
+        THEN TotalAmount ELSE 0 END
+    ) AS CategoryRevenue,
+    ROUND(
+        100.0 *
+        SUM(CASE WHEN OrderStatus = 'Completed' THEN TotalAmount ELSE 0 END)
+        / (
+            SELECT SUM(TotalAmount)
+            FROM RegionalSales2025
+            WHERE OrderStatus = 'Completed'
+        ),
+        2
+    ) AS ContributionPct
+FROM RegionalSales2025
+GROUP BY Category
+ORDER BY CategoryRevenue DESC;
+Purpose
 
----
+Shows category-wise revenue contribution.
 
-### 📊 4. ORDER BY & GROUP BY
+Query 7 – Customers with High Return Frequency
+SELECT
+    CustomerID,
+    COUNT(*) AS ReturnCount,
+    SUM(TotalAmount) AS TotalReturnedValue,
+    GROUP_CONCAT(DISTINCT ProductName) AS ReturnedProducts
+FROM RegionalSales2025
+WHERE OrderStatus = 'Returned'
+GROUP BY CustomerID
+HAVING COUNT(*) >= 2
+ORDER BY ReturnCount DESC;
+Purpose
 
-```sql
--- Alphabetical list of students
-SELECT * FROM Students ORDER BY name;
+Identifies customers with frequent product returns.
 
--- Count students per department
-SELECT department_id, COUNT(*) AS total_students
-FROM Students
-GROUP BY department_id;
+KPI Summary Query
+SELECT
+    COUNT(CASE WHEN OrderStatus = 'Completed' THEN 1 END) AS TotalCompletedSales,
+    SUM(CASE WHEN OrderStatus = 'Completed'
+             THEN TotalAmount ELSE 0 END) AS TotalRevenue,
+    COUNT(CASE WHEN OrderStatus = 'Cancelled' THEN 1 END) AS TotalCancellations,
+    COUNT(CASE WHEN OrderStatus = 'Returned' THEN 1 END) AS TotalReturns,
+    ROUND(AVG(TotalAmount), 2) AS AvgOrderValue
+FROM RegionalSales2025;
+Key Business Insights
+South Region Issues
+Highest cancellation rate
+Highest return rate
+Biggest bottleneck
+Electronics Category
+Highest revenue contributor
+Highest revenue loss
+Seasonal Trend
 
--- Average marks per course
-SELECT course_id, AVG(marks_obtained) AS avg_marks
-FROM Grades
-GROUP BY course_id;
-```
+Weak months:
 
----
+April
+August
 
-### 🧮 5. Aggregate Functions
+Peak months:
 
-```sql
--- Average attendance count
-SELECT AVG(att_count)
-FROM (
-  SELECT COUNT(*) AS att_count
-  FROM Attendance
-  WHERE status='Present'
-  GROUP BY student_id
-);
+May
+July
+November
+Future Improvements
+Add Power BI integration
+Add live database support
+Add filters and drill-down analysis
+Add predictive analytics
+Project Files
+File Name	Description
+RegionalSales2025.csv	Dataset
+SalesBottleneck.sql	SQL queries
+ExecutiveSummary.txt	Summary report
+regional_sales_dashboard_clean.html	Dashboard
+p1.png	Dashboard image
+How to Run
+Step 1
 
--- Highest & lowest marks per course
-SELECT course_id,
-  MAX(marks_obtained) AS highest,
-  MIN(marks_obtained) AS lowest
-FROM Grades
-GROUP BY course_id;
+Download all project files.
 
--- Total students per department
-SELECT department_id, COUNT(*)
-FROM Students
-GROUP BY department_id;
-```
+Step 2
 
----
+Open:
 
-### 🔗 6. JOINs
+regional_sales_dashboard_clean.html
+Step 3
 
-```sql
--- INNER JOIN: Students with their department names
-SELECT s.name, d.department_name
-FROM Students s
-INNER JOIN Departments d ON s.department_id = d.department_id;
+Dashboard opens in browser.
 
--- LEFT JOIN: Students NOT enrolled in any course
-SELECT s.*
-FROM Students s
-LEFT JOIN Enrollments e ON s.student_id = e.student_id
-WHERE e.student_id IS NULL;
+Learning Outcomes
 
--- RIGHT JOIN: Courses without a faculty assigned
-SELECT c.*
-FROM Faculty f
-RIGHT JOIN Courses c ON f.faculty_id = c.faculty_id
-WHERE f.faculty_id IS NULL;
+This project demonstrates:
 
--- FULL OUTER JOIN (via UNION): All students with or without grades
-SELECT s.student_id, g.grade
-FROM Students s LEFT JOIN Grades g ON s.student_id = g.student_id
-UNION
-SELECT s.student_id, g.grade
-FROM Students s RIGHT JOIN Grades g ON s.student_id = g.student_id;
-```
+Data analytics
+Dashboard development
+SQL analysis
+Business intelligence
+KPI tracking
+Data visualization
+Author
 
----
-
-### 🔄 7. Subqueries
-
-```sql
--- Students with marks above class average
-SELECT *
-FROM Grades
-WHERE marks_obtained > (SELECT AVG(marks_obtained) FROM Grades);
-
--- Students absent more than 10 times
-SELECT student_id
-FROM Attendance
-WHERE status='Absent'
-GROUP BY student_id
-HAVING COUNT(*) > 10;
-```
-
----
-
-### 📅 8. Date Functions
-
-```sql
--- Extract month from attendance date
-SELECT MONTH(attendance_date) AS month FROM Attendance;
-
--- Years since student admission
-SELECT student_id,
-  YEAR(CURDATE()) - YEAR(admission_date) AS years
-FROM Students;
-
--- Format date as DD-MM-YYYY
-SELECT DATE_FORMAT(attendance_date,'%d-%m-%Y') FROM Attendance;
-```
-
----
-
-### 🔤 9. String Functions
-
-```sql
--- Uppercase faculty names
-SELECT UPPER(name) FROM Faculty;
-
--- Trim whitespace from student names
-SELECT TRIM(name) FROM Students;
-
--- Replace NULL emails with placeholder
-SELECT IFNULL(email,'Email Not Provided') FROM Students;
-```
-
----
-
-### 🪟 10. Window Functions
-
-```sql
--- Rank students by marks (highest first)
-SELECT student_id, marks_obtained,
-  RANK() OVER (ORDER BY marks_obtained DESC) AS rank_no
-FROM Grades;
-
--- Cumulative attendance count per student
-SELECT student_id,
-  COUNT(*) OVER (PARTITION BY student_id) AS total_attendance
-FROM Attendance;
-
--- Running total of enrollments per month
-SELECT MONTH(enrollment_date) AS month,
-  COUNT(*) OVER (ORDER BY MONTH(enrollment_date)) AS running_total
-FROM Enrollments;
-```
-
----
-
-### 🔀 11. CASE Expressions
-
-```sql
--- Student performance category based on marks
-SELECT student_id, marks_obtained,
-  CASE
-    WHEN marks_obtained > 90 THEN 'Excellent'
-    WHEN marks_obtained BETWEEN 75 AND 90 THEN 'Good'
-    ELSE 'Needs Improvement'
-  END AS performance
-FROM Grades;
-
--- Attendance regularity category
-SELECT student_id,
-  CASE
-    WHEN COUNT(CASE WHEN status='Present' THEN 1 END)*100/COUNT(*) > 80 THEN 'Regular'
-    WHEN COUNT(CASE WHEN status='Present' THEN 1 END)*100/COUNT(*) BETWEEN 50 AND 80 THEN 'Irregular'
-    ELSE 'Defaulter'
-  END AS category
-FROM Attendance
-GROUP BY student_id;
-```
-
----
-
-## 🖼️ Table Screenshots
-
-| Table        | Preview File            | Description                              |
-|--------------|-------------------------|------------------------------------------|
-| Departments  | `tables/DEPARTMENTS.png`| 10 engineering departments               |
-| Students     | `tables/STUDENTS.png`   | 10 students with personal/dept info      |
-| Faculty      | `tables/Faculty.png`    | 10 faculty members with contact info     |
-| Courses      | `tables/Courses.png`    | 10 courses mapped to faculty             |
-| Enrollments  | `tables/Enrollments.png`| Student-course enrollment records        |
-| Attendance   | `tables/Attendance.png` | Attendance records (Present/Absent/Late) |
-| Grades       | `tables/Grades.png`     | Marks and letter grades per student      |
-
----
-
-## ⚙️ How to Run
-
-1. Open MySQL Workbench or any MySQL client.
-2. Run the full `students.SQL` file:
-   ```sql
-   SOURCE /path/to/students.SQL;
-   ```
-3. Or execute section by section — DDL first, then DML inserts, then queries.
-
----
-
-## 📌 Key Concepts Covered
-
-| Concept             | Description                                      |
-|---------------------|--------------------------------------------------|
-| DDL                 | CREATE TABLE with PRIMARY KEY, FOREIGN KEY, UNIQUE|
-| DML                 | INSERT, UPDATE, DELETE                           |
-| Clauses             | WHERE, HAVING, LIMIT, ORDER BY, GROUP BY         |
-| Operators           | AND, OR, NOT, IN, NOT IN                         |
-| Joins               | INNER, LEFT, RIGHT, FULL OUTER (via UNION)       |
-| Aggregate Functions | COUNT, AVG, MAX, MIN                             |
-| Subqueries          | Scalar & correlated subqueries                   |
-| Date Functions      | MONTH(), YEAR(), CURDATE(), DATE_FORMAT()        |
-| String Functions    | UPPER(), TRIM(), IFNULL()                        |
-| Window Functions    | RANK(), COUNT() OVER PARTITION BY                |
-| CASE Expressions    | Conditional logic inside SELECT                  |
-
----
-
-## 👨‍💻 Author
-
-Built as a complete SQL learning project demonstrating core relational database concepts using a Student Management System domain.
+Business Analyst Project
+Prepared for educational and analytical purposes.
