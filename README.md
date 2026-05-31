@@ -107,7 +107,7 @@ Excel Analyzer Pr 2/
 
 ## 🔹 Top 10 Customers
 
-![Top 10 Customers](Screenshots/1.png)
+![Top 10 Customers](Screenshots/1.PNG)
 
 ---
 
