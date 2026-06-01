@@ -143,7 +143,7 @@ The dataset comprises **13 columns** capturing quantitative and qualitative empl
 - Configured **column data types** appropriately (numbers, percentages, text) to prevent formula errors
 - Enabled **AutoFilter** headers for rapid field-level filtering during exploration
 
-📸 *Screenshot:* `Screenshots/1.Imported_Dataset.png`
+📸 *Screenshot:* `Screenshots/1.Imported_Dataset.PNG
 
 ---
 
